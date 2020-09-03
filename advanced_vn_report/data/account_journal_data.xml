@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="transaction_entry_journal" model="account.journal">
+            <field name="name">Kết chuyển chi phí hợp đồng</field>
+            <field name="code">KC</field>
+            <field name="type">general</field>
+<!--            <field name="default_credit_account_id" ref="a_sale"/>-->
+<!--            <field name="default_debit_account_id" ref="a_sale"/>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+        </record>
+        <record id="contract_acceptance_journal" model="account.journal">
+            <field name="name">Nghiệm thu hợp đồng</field>
+            <field name="code">NT</field>
+            <field name="type">general</field>
+<!--            <field name="default_credit_account_id" ref="a_sale"/>-->
+<!--            <field name="default_debit_account_id" ref="a_sale"/>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+        </record>
+        <record id="revaluation_foreign_currency_journal" model="account.journal">
+            <field name="name">Định giá lại tài khoản ngoại tệ</field>
+            <field name="code">DGTKNT</field>
+            <field name="type">general</field>
+<!--            <field name="default_credit_account_id" ref="a_sale"/>-->
+<!--            <field name="default_debit_account_id" ref="a_sale"/>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+        </record>
+    </data>
+</odoo>

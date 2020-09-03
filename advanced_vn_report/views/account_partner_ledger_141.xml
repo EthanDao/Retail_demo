@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="action_account_report_partner_ledger_141" model="ir.actions.client">
+            <field name="name"># Sổ cái tạm ứng (141)</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.partner.ledger.141'}" />
+        </record>
+        <menuitem id="menu_action_account_report_partner_ledger_141" name="### Sổ cái tạm ứng(141)" action="action_account_report_partner_ledger_141" parent="account.account_reports_legal_statements_menu" groups="account.group_account_user" sequence="305"/>
+
+    <template id="line_template_partner_ledger_report_141" inherit_id="account_reports.line_template" >
+        <xpath expr="//div[hasclass('o_account_reports_domain_dropdown')]/*[last()]" position="before">
+            <t t-if="'account_id' in line">
+                <t t-if="line['caret_options'] != 'account.tax' and line['caret_options'] != 'account.account'">
+                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" action="action_view_account_move_tree"
+                       class="dropdown-item"># Xem bút toán
+                    </a>
+                </t>
+            </t>
+        </xpath>
+    </template>
+    </data>
+</odoo>

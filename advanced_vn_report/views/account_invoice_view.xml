@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_invoice_view_inherit_related_account_contract" model="ir.ui.view">
+            <field name="name">Update related account, add contract</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='line_ids']//tree//field[@name='credit']" position="after">-->
+<!--                    <field name="related_account_id"/>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='line_ids']//tree//field[@name='name']" position="after">
+                    <field name="account_contract_id"/>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="after">
+<!--                    <field name="account_contract_id"-->
+<!--                           attrs="{'invisible': [('type', '!=', 'out_invoice'),('type', '!=', 'out_refund'),('type', '!=', 'in_invoice'),('type', '!=', 'in_refund'),('type', '!=', 'entry')]}"/>-->
+                    <field name="account_contract_id" invisible ="1"/>
+<!--                    <field name="sale_order_contract_id"/>-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

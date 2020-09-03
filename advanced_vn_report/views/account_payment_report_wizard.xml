@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_payment_pdf_wiward_form" model="ir.ui.view">
+            <field name="name">account.payment.pdf.wizard.form</field>
+            <field name="model">account.payment.pdf.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Force Location Ex">
+                    <sheet>
+                        <group>
+                            <field name="account_payment_id" invisible="1"/>
+                            <field name="new_description" string="Lý do nộp"/>
+                            <field name="address" string="Địa chỉ"/>
+                        </group>
+                        <footer>
+                            <button name="action_print_pdf" type="object"
+                                    string="Xuất dữ liệu" class="oe_highlight"/>
+                            <button special="cancel" string="Hủy"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

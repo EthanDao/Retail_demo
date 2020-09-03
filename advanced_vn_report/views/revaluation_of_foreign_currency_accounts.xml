@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="revaluation_of_foreign_currency_accounts_view_form" model="ir.ui.view">
+            <field name="name">revaluation_of_foreign_currency_accounts_view_form</field>
+            <field name="model">revaluation.of.foreign.currency.accounts</field>
+            <field name="arch" type="xml">
+                <form string="revaluation_of_foreign_currency_accounts_form">
+                    <header>
+                        <button name="confirm_revaluation" type="object" string="Xác nhận"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_account_move_related" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <field name="count_account_move" widget="statinfo" string="Bút toán"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="currency_id" required="1"/>
+                            <field name="buying_rate" required="1"/>
+                            <field name="account_apply_buy_rate_need_revaluation_ids" required="1" domain="[('id','in',account_suggest_ids)]"/>
+                        </group>
+                        <group>
+                            <field name="date_to" required="1"/>
+                            <field name="sell_rate" required="1"/>
+                            <field name="account_apply_sell_rate_need_revaluation_ids" required="1" domain="[('id','in',account_suggest_ids)]"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="account_suggest_ids" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="revaluation_of_foreign_currency_accounts_view_tree" model="ir.ui.view">
+            <field name="name">revaluation_of_foreign_currency_accounts_view_tree</field>
+            <field name="model">revaluation.of.foreign.currency.accounts</field>
+            <field name="arch" type="xml">
+                <tree string="revaluation_of_foreign_currency_accounts_tree">
+                    <field name="currency_id"/>
+                    <field name="date_to"/>
+                    <field name="buying_rate"/>
+                    <field name="sell_rate"/>
+                    <field name="account_profit"/>
+                    <field name="account_loss"/>
+                </tree>
+            </field>
+        </record>
+        <record id="revaluation_of_foreign_currency_accounts_action" model="ir.actions.act_window">
+            <field name="name">Định giá lại tài khoản ngoại tệ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">revaluation.of.foreign.currency.accounts</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+<!--        <menuitem id="revaluation_of_foreign_currency_accounts_menu" name="### Định giá lại tài khoản ngoại tệ" parent="account.account_reports_legal_statements_menu" action="revaluation_of_foreign_currency_accounts_action" sequence="901"/>-->
+    </data>
+</odoo>

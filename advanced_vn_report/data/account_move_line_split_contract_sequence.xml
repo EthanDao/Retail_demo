@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_move_line_split_contract_sequence" model="ir.sequence">
+            <field name="name">Mã phân bổ</field>
+            <field name="code">advanced_vn_report.account_move_line_split_contract_sequence</field>
+            <field name="prefix">PB-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

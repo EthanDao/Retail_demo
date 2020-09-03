@@ -1,0 +1,137 @@
+<odoo>
+    <data>
+        <record id="account_tax_report_xml_view_form" model="ir.ui.view">
+            <field name="name">account_tax_report_xml_view_form</field>
+            <field name="model">account.xml.tax.report</field>
+            <field name="arch" type="xml">
+                <form string="account_tax_report_xml_form">
+                    <header>
+                        <button name="export_xml_data" type="object" string="Xuất file XML" class="oe_highlight"/>
+                        <button name="export_xlsx" type="object" string="Xuất file XLSX" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="kyKKhai" required="1" placeholder="vd: 03/2020"/>
+                                <field name="kyKKhaiTuNgay" required="1"/>
+                                <field name="kyKKhaiDenNgay" required="1"/>
+                                <field name="maCQTNoiNop" required="1"/>
+                                <field name="tenCQTNoiNop" required="1"/>
+                                <field name="nguoiKy" required="1"/>
+                                <field name="ngayKy" required="1"/>
+                                <field name="nganhNgheKD" required="1"/>
+                            </group>
+                            <group>
+                                <field name="ct_22" required="0"/>
+<!--                                <field name="ct_25" required="0"/>-->
+                                <field name="ct_37" required="0"/>
+                                <field name="ct_38" required="0"/>
+                                <field name="ct_39" required="0"/>
+                                <field name="ct_40b" required="0"/>
+                                <field name="ct_42" required="0"/>
+                            </group>
+                            <label for="file_name" attrs="{'invisible': [('file','=', False)]}"/>
+                            <field name="file" filename="file_name" readonly="1" attrs="{'invisible': [('file','=', False)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="account_tax_report_xml_view_tree" model="ir.ui.view">
+            <field name="name">account_tax_report_xml_view_tree</field>
+            <field name="model">account.xml.tax.report</field>
+            <field name="arch" type="xml">
+                <tree string="account_tax_report_xml_tree">
+                    <field name="kyKKhai"/>
+                    <field name="kyKKhaiTuNgay"/>
+                    <field name="kyKKhaiDenNgay"/>
+                    <field name="maCQTNoiNop"/>
+                    <field name="tenCQTNoiNop"/>
+                    <field name="nguoiKy"/>
+                    <field name="ngayKy"/>
+                    <field name="nganhNgheKD"/>
+                    <field name="ct_22"/>
+<!--                    <field name="ct_25"/>-->
+                    <field name="ct_37"/>
+                    <field name="ct_38"/>
+                    <field name="ct_39"/>
+                    <field name="ct_40b"/>
+                    <field name="ct_42"/>
+                </tree>
+            </field>
+        </record>
+        <record id="information_tax_view_form" model="ir.ui.view">
+            <field name="name">information_tax_view_form</field>
+            <field name="model">information.tax</field>
+            <field name="arch" type="xml">
+                <form string="information_tax_form">
+                    <sheet>
+                        <group>
+                            <group string="Thông tin thuế của công ty">
+                                <field name="mst"/>
+                                <field name="tenNNT"/>
+                                <field name="dchiNNT"/>
+                                <field name="tenHuyenNNT"/>
+                                <field name="tenTinhNNT"/>
+                                <field name="phone"/>
+                                <field name="fax"/>
+                                <field name="email"/>
+                            </group>
+                            <group string="Thông tin đại lý thuế">
+                                <field name="name_dl_thue"/>
+                                <field name="mst_dl_thue"/>
+                                <field name="dchi_dl_thue"/>
+                                <field name="tenHuyendl_thue"/>
+                                <field name="tenTinhdl_thue"/>
+                                <field name="phone_dl_thue"/>
+                                <field name="fax_dl_thue"/>
+                                <field name="email_dl_thue"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="information_tax_view_tree" model="ir.ui.view">
+            <field name="name">information_tax_view_tree</field>
+            <field name="model">information.tax</field>
+            <field name="arch" type="xml">
+                <tree string="information_tax_tree">
+                    <field name="mst"/>
+                    <field name="tenNNT"/>
+                    <field name="dchiNNT"/>
+                    <field name="tenHuyenNNT"/>
+                    <field name="tenTinhNNT"/>
+                    <field name="phone"/>
+                    <field name="fax"/>
+                    <field name="email"/>
+                    <field name="name_dl_thue"/>
+                    <field name="mst_dl_thue"/>
+                    <field name="dchi_dl_thue"/>
+                    <field name="tenHuyendl_thue"/>
+                    <field name="tenTinhdl_thue"/>
+                    <field name="phone_dl_thue"/>
+                    <field name="fax_dl_thue"/>
+                    <field name="email_dl_thue"/>
+                </tree>
+            </field>
+        </record>
+        <record id="information_tax_action" model="ir.actions.act_window">
+            <field name="name">Cấu hình thông tin thuế</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">information.tax</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="account_tax_report_action" model="ir.actions.act_window">
+            <field name="name">TỜ KHAI THUẾ GIÁ TRỊ GIA TĂNG (Mẫu số 01/GTGT)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.xml.tax.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_account_tax_report" name="### TỜ KHAI THUẾ GIÁ TRỊ GIA TĂNG (XML)" parent="account.account_reports_legal_statements_menu" action="account_tax_report_action" sequence="306"/>
+        <menuitem id="menu_information_tax" name="### Cấu hình thông tin thuế" parent="account.account_management_menu"
+                  action="information_tax_action"/>
+    </data>
+</odoo>

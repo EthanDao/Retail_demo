@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="contract_acceptance_view_form" model="ir.ui.view">
+            <field name="name">contract_acceptance_view_form</field>
+            <field name="model">contract.acceptance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="load_contract_acceptance_lines" string="Lấy dữ liệu" type="object"
+                                attrs="{'invisible': [('state', '=', 'done')]}"
+                                class="btn-primary"/>
+                        <button name="post_contract_acceptance_lines" string="Xác nhận Nghiệm thu" type="object"
+                                attrs="{'invisible': [('state', '=', 'done')]}"
+                                class="btn-primary"/>
+<!--                        <button name="cancel" string="Hủy" type="object" class="btn-primary"-->
+<!--                                attrs="{'invisible': [('state', '=', 'draft')]}"/>-->|
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_contract_acceptance_account_move"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o">
+                            <field name="count_move_line" widget="statinfo" string="Bút toán liên quan"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="code" readonly="1"/>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                        <field name="contract_acceptance_line_ids">
+                           <tree editable="bottom">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="contract_id" readonly="1"/>
+<!--                                <field name="partner_id" readonly="1"/>-->
+<!--                                <field name="name" readonly="1"/>-->
+                                <field name="account_id" readonly="1"/>
+<!--                                <field name="related_account_id"/>-->
+                                <field name="related_contract_cost_temp" readonly="1"/>
+                                <field name="remain_cost_temp" readonly="1"/>
+                                <field name="price"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="contract_acceptance_view_tree" model="ir.ui.view">
+            <field name="name">contract_acceptance_view_tree</field>
+            <field name="model">contract.acceptance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+<!--                    <field name="code" readonly="1"/>-->
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+        <record id="contract_acceptance_action_menu" model="ir.actions.act_window">
+            <field name="name">Nghiệm thu hợp đồng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contract.acceptance</field>
+            <field name="context">{'delete':False}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="contract_acceptance_menu" name="Nghiệm thu hợp đồng" parent="account.menu_finance_entries"
+                  action="contract_acceptance_action_menu" sequence="99"/>
+    </data>
+</odoo>

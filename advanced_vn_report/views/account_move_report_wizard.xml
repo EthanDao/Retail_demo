@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_move_pdf_wiward_form" model="ir.ui.view">
+            <field name="name">account.move.pdf.wizard.form</field>
+            <field name="model">account.move.pdf.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Force Location Ex">
+                    <sheet>
+                        <group>
+                            <field name="account_move_id" invisible="1"/>
+                            <field name="new_description" string="Lý do nộp"/>
+                        </group>
+                        <footer>
+                            <button name="action_print_pdf" type="object"
+                                    string="Xuất dữ liệu" class="oe_highlight"/>
+                            <button special="cancel" string="Hủy"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

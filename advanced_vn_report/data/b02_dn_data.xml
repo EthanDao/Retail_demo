@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+                <!--        menu-->
+        <record id="account_financial_report_pnl_b02" model="account.financial.html.report">
+            <field name="name">### Báo cáo kết quả kinh doanh(B02-DN)</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name="date_range" eval="True"/>
+            <field name='parent_id' ref='account.account_reports_legal_statements_menu'/>
+
+        </record>
+                <!--        report content-->
+        <record id="account_financial_report_pnl_b02_01" model="account.financial.html.report.line">
+            <field name="name">1. Doanh thu bán hàng và cung cấp dịch vụ (1)</field>
+            <field name="code">b02_1</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="1"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 1)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_2" model="account.financial.html.report.line">
+            <field name="name">2. Các khoản giảm trừ doanh thu (2)</field>
+            <field name="code">b02_2</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="2"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 2)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_10" model="account.financial.html.report.line">
+            <field name="name">3. Doanh thu thuần về bán hàng và cung cấp dịch vụ (10= 01-02) (10)</field>
+            <field name="code">b02_10</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = b02_1.balance - b02_2.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="3"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_11" model="account.financial.html.report.line">
+            <field name="name">4. Giá vốn hàng bán (11)</field>
+            <field name="code">b02_11</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="4"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 11)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_20" model="account.financial.html.report.line">
+            <field name="name">5. Lợi nhuận gộp về bán hàng và cung cấp dịch vụ (20 = 10 - 11) (20)</field>
+            <field name="code">b02_20</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = b02_10.balance - b02_11.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="5"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+<!--            <field name="domain" eval="[('b02_dn', '=', 20)]"/>-->
+        </record>
+        <record id="account_financial_report_pnl_b02_21" model="account.financial.html.report.line">
+            <field name="name">6. Doanh thu hoạt động tài chính (21)</field>
+            <field name="code">b02_21</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="6"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 21)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_22" model="account.financial.html.report.line">
+            <field name="name">7. Chi phí tài chính (22)</field>
+            <field name="code">b02_22</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="7"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 22)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+<!--        todo chi phi lai vay-->
+        <record id="account_financial_report_pnl_b02_23" model="account.financial.html.report.line">
+            <field name="name"> -Trong đó: Chi phí lãi vay(23)</field>
+            <field name="code">b02_23</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="7"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn_23', '=', 23)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_25" model="account.financial.html.report.line">
+            <field name="name">8. Chi phí bán hàng (25)</field>
+            <field name="code">b02_25</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="8"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 25)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+         <record id="account_financial_report_pnl_b02_26" model="account.financial.html.report.line">
+            <field name="name">9. Chi phí quản lý kinh doanh (26)</field>
+            <field name="code">b02_26</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="9"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 26)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_30" model="account.financial.html.report.line">
+            <field name="name">10. Lợi nhuận thuần từ hoạt động kinh doanh {30 = 20 + (21 - 22)-(25 + 26 )} (30)</field>
+            <field name="code">b02_30</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = b02_20.balance + b02_21.balance - b02_22.balance - b02_25.balance - b02_26.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="10"/>
+            <field name="groupby">account_id</field>
+            <field name="special_date_changer">strict_range</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_pnl_b02_31" model="account.financial.html.report.line">
+            <field name="name">11. Thu nhập khác (31)</field>
+            <field name="code">b02_31</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="11"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 31)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_32" model="account.financial.html.report.line">
+            <field name="name">12. Chi phí khác (32)</field>
+            <field name="code">b02_32</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="12"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 32)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_40" model="account.financial.html.report.line">
+            <field name="name">13. Lợi nhuận khác (40 = 31 - 32) (40)</field>
+            <field name="code">b02_40</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = b02_31.balance - b02_32.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="13"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_50" model="account.financial.html.report.line">
+            <field name="name">14. Tổng lợi nhuận kế toán trước thuế (50 = 30 + 40) (50) </field>
+            <field name="code">b02_50</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = b02_30.balance + b02_40.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="14"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_report_pnl_b02_51" model="account.financial.html.report.line">
+            <field name="name">15. Chi phí thuế thu nhập doanh nghiệp hiện hành (51)</field>
+            <field name="code">b02_51</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="15"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn_51', '=', 51)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+<!--        <record id="account_financial_report_pnl_b02_511" model="account.financial.html.report.line">-->
+<!--            <field name="name">Tổng số phát sinh bên Có TK 8211 đối ứng với bên Nợ Tk 911</field>-->
+<!--            <field name="code">b02_511</field>-->
+<!--            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>-->
+<!--            <field name="formulas">balance = sum.balance</field>-->
+<!--            <field name="level" eval="2"/>-->
+<!--            <field name="sequence" eval="16"/>-->
+<!--            <field name="groupby">related_account_id</field>-->
+<!--            <field name="green_on_positive" eval="True"/>-->
+<!--            <field name="domain" eval="[('b02_dn', '=', 511)]"/>-->
+<!--            <field name="special_date_changer">strict_range</field>-->
+<!--        </record>-->
+<!--        <record id="account_financial_report_pnl_b02_512" model="account.financial.html.report.line">-->
+<!--            <field name="name">Tổng số phát sinh bên Nợ TK 8211 đối ứng với bên Có TK 911</field>-->
+<!--            <field name="code">b02_512</field>-->
+<!--            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>-->
+<!--            <field name="formulas">balance = -sum.balance</field>-->
+<!--            <field name="level" eval="2"/>-->
+<!--            <field name="sequence" eval="16"/>-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="green_on_positive" eval="True"/>-->
+<!--            <field name="domain" eval="[('b02_dn', '=', 512)]"/>-->
+<!--            <field name="special_date_changer">strict_range</field>-->
+<!--        </record>-->
+        <record id="account_financial_report_pnl_b02_52" model="account.financial.html.report.line">
+            <field name="name">16. Chi phí thuế thu nhập doanh nghiệp hoãn lại (52)</field>
+            <field name="code">b02_52</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="16"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b02_dn', '=', 52)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+<!--        <record id="account_financial_report_pnl_b02_521" model="account.financial.html.report.line">-->
+<!--            <field name="name">Tổng số phát sinh bên Có TK 8211 đối ứng với bên Nợ Tk 911</field>-->
+<!--            <field name="code">b02_521</field>-->
+<!--            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>-->
+<!--            <field name="formulas">balance = sum.balance</field>-->
+<!--            <field name="level" eval="2"/>-->
+<!--            <field name="sequence" eval="17"/>-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="green_on_positive" eval="True"/>-->
+<!--            <field name="domain" eval="[('b02_dn', '=', 521)]"/>-->
+<!--            <field name="special_date_changer">strict_range</field>-->
+<!--        </record>-->
+<!--        <record id="account_financial_report_pnl_b02_522" model="account.financial.html.report.line">-->
+<!--            <field name="name">Tổng số phát sinh bên Nợ TK 8211 đối ứng với bên Có TK 911</field>-->
+<!--            <field name="code">b02_522</field>-->
+<!--            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>-->
+<!--            <field name="formulas">balance = -sum.balance</field>-->
+<!--            <field name="level" eval="2"/>-->
+<!--            <field name="sequence" eval="17"/>-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="green_on_positive" eval="True"/>-->
+<!--            <field name="domain" eval="[('b02_dn', '=', 522)]"/>-->
+<!--            <field name="special_date_changer">strict_range</field>-->
+<!--        </record>-->
+        <record id="account_financial_report_pnl_b02_60" model="account.financial.html.report.line">
+            <field name="name">17. Lợi nhuận sau thuế thu nhập doanh nghiệp(60=50-51-52) (60)</field>
+            <field name="code">b02_60</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>
+            <field name="formulas">balance = b02_50.balance - b02_51.balance - b02_52.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="17"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+<!--        todo 18-19 cổ phiếu -->
+<!--        <record id="account_financial_report_pnl_b02_70" model="account.financial.html.report.line">-->
+<!--            <field name="name">18. Lãi cơ bản trên cổ phiếu </field>-->
+<!--            <field name="code">b02_70</field>-->
+<!--            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>-->
+<!--            <field name="formulas"></field>-->
+<!--            <field name="level" eval="1"/>-->
+<!--            <field name="sequence" eval="18"/>-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="green_on_positive" eval="True"/>-->
+<!--            <field name="special_date_changer">strict_range</field>-->
+<!--&lt;!&ndash;            <field name="domain" eval="[('b02_dn', '=', 70)]"/>&ndash;&gt;-->
+<!--        </record>-->
+<!--        <record id="account_financial_report_pnl_b02_71" model="account.financial.html.report.line">-->
+<!--            <field name="name">19. Lãi suy giảm trên cổ phiếu </field>-->
+<!--            <field name="code">b02_71</field>-->
+<!--            <field name="financial_report_id" ref="account_financial_report_pnl_b02"/>-->
+<!--            <field name="formulas"></field>-->
+<!--            <field name="level" eval="1"/>-->
+<!--            <field name="sequence" eval="19"/>-->
+<!--            <field name="groupby">account_id</field>-->
+<!--            <field name="green_on_positive" eval="True"/>-->
+<!--            <field name="special_date_changer">strict_range</field>-->
+<!--&lt;!&ndash;            <field name="domain" eval="[('b02_dn', '=', 71)]"/>&ndash;&gt;-->
+<!--        </record>-->
+        <record id="account_financial_report_pnl_b02_action" model="ir.actions.client">
+            <field name="name">### Báo cáo kết quả kinh doanh(B02-DN)</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.financial.html.report', 'id': ref('account_financial_report_pnl_b02')}"/>
+        </record>
+    </data>
+</odoo>

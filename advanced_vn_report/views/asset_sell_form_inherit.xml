@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="asset_sell_form_inherit" model="ir.ui.view">
+            <field name="name">asset.sell.view.form</field>
+            <field name="model">account.asset.sell</field>
+            <field name="inherit_id" ref="account_asset.asset_sell_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_id']" position="attributes">
+                    <attribute name="domain">[('is_liquidation_invoice','=',True)]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

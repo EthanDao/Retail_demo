@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_inventory_line_tree2_inherit_view" model="ir.ui.view">
+            <field name="name">stock_inventory_line_tree2_inherit_view</field>
+            <field name="model">stock.inventory.line</field>
+            <field name="inherit_id" ref="stock.stock_inventory_line_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_uom_id']" position="after">
+                    <field name="note"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="stock_inventory_form_inherit_view" model="ir.ui.view">
+            <field name="name">stock_inventory_form_inherit_view</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='prefill_counted_quantity']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_open_inventory_lines']" position="attributes">
+                    <attribute name="string">Tiếp tục kiểm kho</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

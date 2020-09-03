@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="transaction_entry_sequence" model="ir.sequence">
+            <field name="name">Mã kết chuyển</field>
+            <field name="code">advanced_vn_report.transaction_entry_sequence</field>
+            <field name="prefix">KC-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

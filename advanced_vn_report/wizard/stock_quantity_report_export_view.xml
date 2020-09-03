@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_quantity_report_export_view_form" model="ir.ui.view">
+            <field name="name">stock_quantity_report_export_view_form</field>
+            <field name="model">stock.quantity.report.export</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <field name="location_id" required="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm" type="object" string="Xác nhận"
+                                class="oe_highlight"/>
+                        <button string="Huỷ" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="stock_quantity_report_export_action" model="ir.actions.act_window">
+            <field name="name">### Báo cáo xuất, nhập, tồn kho</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.quantity.report.export</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="advanced_vn_report.stock_quantity_report_export_view_form"/>
+        </record>
+        <menuitem id="stock_quantity_report_export_menu" name="### Báo cáo xuất, nhập, tồn kho"
+                  parent="stock.menu_warehouse_report" action="stock_quantity_report_export_action"
+                  sequence="200"/>
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="contract_acceptance_sequence" model="ir.sequence">
+            <field name="name">Mã nghiệm thu</field>
+            <field name="code">advanced_vn_report.contract_acceptance_sequence</field>
+            <field name="prefix">NT-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

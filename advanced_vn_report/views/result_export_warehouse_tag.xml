@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="result_export_warehouse_tag_form_view" model="ir.ui.view">
+            <field name="name">result_export_warehouse_tag_form_view</field>
+            <field name="model">result.export.warehouse.tag</field>
+            <field name="arch" type="xml">
+                <form string="result_export_warehouse_tag_form">
+                    <sheet>
+                        <group>
+                            <field name="file_name" invisible="1"/>
+                            <field name="file" filename="file_name" readonly="1" string="Result"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Cancel" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

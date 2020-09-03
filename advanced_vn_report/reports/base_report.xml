@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="base_pdf_report_qweb" name="Base PDF Report">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page"/>
+                </t>
+            </t>
+        </template>
+        <template id="base_pdf_report_qweb_a5" name="Base PDF Report">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

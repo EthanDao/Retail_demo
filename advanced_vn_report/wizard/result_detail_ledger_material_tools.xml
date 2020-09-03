@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="result_detail_ledger_material_tools_form_view" model="ir.ui.view">
+            <field name="name">result_detail_ledger_material_tools_form_view</field>
+            <field name="model">result.detail.ledger.material.tools</field>
+            <field name="arch" type="xml">
+                <form string="result_detail_ledger_material_tools_form_view">
+                    <sheet>
+                        <group>
+                            <field name="file_name" invisible="1"/>
+                            <field name="file" filename="file_name" readonly="1" string="Tài liệu"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Hủy" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_payment_report_pdf_a5" model="ir.ui.view">
+            <field name="name">account.payment.pdf</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="advanced_vn_report.base_pdf_report_qweb_a5"/>
+            <field name="mode">extension</field>
+            <field name="arch" type="xml">
+                <xpath expr="/t/t/t/div" position="inside">
+                    <div class="row" style="font-family: 'Times New Roman', Times, serif;">
+                        <div class="col">
+                            <div class="pt-container">
+                                <div style="margin-bottom">
+                                    <div class="header-left" style="float: left; width: 50%">
+                                        <p style="margin-bottom: 0">Công Ty Cổ Phần Flexfit</p>
+                                        <p style="font-size: 10px; margin-top: 0; margin-bottom: 5px;">
+                                            Tầng 4, số 8 Tràng Thi, Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội
+                                        </p>
+                                    </div>
+                                    <div class="header-right" style="float: right; width: 32%">
+                                            <p style="text-align: center; margin-bottom: 0"><b>Mẫu số 02-TT</b></p>
+                                        <p style="font-size: 10px; font-style: italic;  text-align: center;">(Ban hành theo
+                                            QĐ số 200/2014/TT-BTC
+                                            ngày
+                                            22/12/2014 của Bộ Tài chính)
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content" style="clear: left; margin-top: -45px;">
+                                    <t t-if="doc.payment_type == 'inbound'">
+                                        <b>
+                                            <p style="font-weight: 600;margin-left:355px; margin-top: -35px; margin-bottom: -5px; font-size: 24px;">
+                                                PHIẾU THU
+                                            </p>
+                                        </b>
+                                    </t>
+
+                                    <t t-if="doc.payment_type == 'outbound'">
+                                        <b>
+                                            <p style="font-weight: 600;margin-left:355px; margin-top: -35px; margin-bottom: -5px; font-size: 24px;">
+                                                PHIẾU CHI
+                                            </p>
+                                        </b>
+                                    </t>
+                                    <b>
+                                        <p style="font-size: 13px; text-align: center; margin-bottom: 10px; font-style: italic;"  >
+                                            <b t-field="doc.report_pdf_date">Ngày 15 tháng 01 năm
+                                                2020
+                                            </b>
+                                        </p>
+                                    </b>
+                                    <div>
+                                        <div class="content-left" style="float: left; width: 70%">
+                                            <table>
+                                                <tr>
+                                                     <td valign="top" style="font-size: 14px; min-width:200px;">
+                                                        <span>Họ và tên người nhận tiền:   </span><span t-field="doc.report_person_get_money">Họ và tên người nhận tiền:</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="font-size: 14px; min-width:200px;">
+                                                        <span>Địa chỉ:   </span> <span t-field="doc.latest_address"/>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="font-size: 14px; min-width:200px;">
+                                                        <span>Lý do:   </span><span t-field="doc.report_pdf_data_ly_do_nop"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="font-size: 14px; min-width:200px;">
+                                                        <span>Số tiền:   </span><span style="font-weight: 600;" t-field="doc.total_money"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="font-size: 14px; min-width:200px;">
+                                                        <span> Viết bằng chữ:   </span><b><span t-field="doc.report_pdf_data_tien_bang_chu"/></b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="font-size: 14px; min-width:200px;">
+                                                        <span>Kèm Theo:</span><span>.........chứng từ gốc</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="content-right" style="float: right; width: 25%">
+                                        <p style="font-size: 13px; margin-top: 0; margin-bottom: 5px;">Quyền số:...........................
+
+                                        </p>
+                                        <p style="font-size: 13px; margin-top: 0; margin-bottom: 5px;">Số:
+                                            <span t-field="doc.name"/>
+                                        </p>
+                                        <p style="font-size: 13px; margin-top: 0; margin-bottom: 5px;">Nợ:
+                                            <span t-field="doc.report_pdf_data_debit_code"/>
+                                        </p>
+                                        <p style="font-size: 13px; margin-top: 0; margin-bottom: 5px;">Có:
+                                            <span t-field="doc.report_pdf_data_credit_code"/>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="pt-footer" style=" clear: left; ">
+                                <p style="font-size: 13px; margin-bottom: 5px; text-align: right;font-style: italic; ">
+                                    Ngày........tháng........năm.........
+                                </p>
+                                <table style="text-align: center; width: 850px;">
+                                    <tr>
+                                        <td>
+                                            <span style="font-weight: 600;font-size:11px; text-transform: uppercase; margin-bottom: 5px">Giám đốc</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-weight: 600;font-size:11px; text-transform: uppercase; margin-bottom: 5px">Kế toán trưởng</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-weight: 600;font-size:11px; text-transform: uppercase; margin-bottom: 5px">Thủ quỹ</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-weight: 600;font-size:11px; text-transform: uppercase; margin-bottom: 5px">Người lập phiếu</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-weight: 600;font-size:11px; text-transform: uppercase; margin-bottom: 5px">Người nhận tiền</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span style="font-style: italic; font-size:10px;">(Ký, ghi rõ họ tên, đóng dấu)</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-style: italic; font-size:10px;">(Ký, ghi rõ họ tên)</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-style: italic; font-size:10px;">(Ký, ghi rõ họ tên)</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-style: italic; font-size:10px;">(Ký, ghi rõ họ tên)</span>
+                                        </td>
+                                        <td>
+                                            <span style="font-style: italic; font-size:10px;">(Ký, ghi rõ họ tên)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <span style="font-weight: 600;font-size:11px;">Đặng Hương Giang</span>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <span style="font-weight: 600;font-size:11px;">Nguyễn Thị Thuân</span>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <span style="font-weight: 600;font-size:11px;">Trịnh Thị Yến</span>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <span style="font-weight: 600;font-size:11px;">Lại Thị Yến</span>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <span style="font-weight: 600;font-size:11px;">Vũ Thị Thu Thảo</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="pt-footer-bottom" style="margin-top: 15px">
+                                    <span style="font-size: 14px; margin-top: 10px; margin-bottom: 5px;">Đã nhận đủ số
+                                        tiền
+                                        (viết bằng chữ):
+                                    </span>
+                                    <span style="font-size: 14px; margin-top: 10px; margin-bottom: 5px;" t-field="doc.report_pdf_data_tien_bang_chu"/>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <report
+                id="action_payment_pdf_export_a5"
+                string="# In Phiếu Chi - A5"
+                model="account.payment"
+                report_type="qweb-pdf"
+                file="advanced_vn_report.account_payment_report_pdf_a5"
+                name="advanced_vn_report.account_payment_report_pdf_a5"
+                print_report_name="'Phieuchi-%s'"
+                groups="base.group_system"
+        />
+
+
+    </data>
+</odoo>

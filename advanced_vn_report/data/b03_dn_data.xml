@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--        main report-->
+        <record id="account_financial_report_cash_flow_statement_b03" model="account.financial.html.report">
+            <field name="name">### Lưu chuyển tiền tệ (B03-DN)</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name="date_range" eval="True"/>
+            <field name='parent_id' ref='account.account_reports_legal_statements_menu'/>
+        </record>
+        <!--        report content-->
+        <record id="account_financial_cash_flow_statement_b03_i" model="account.financial.html.report.line">
+            <field name="name">I. Lưu chuyển tiền từ hoạt động kinh doanh</field>
+            <field name="code">b03_i</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="2"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_01" model="account.financial.html.report.line">
+            <field name="name">1. Tiền thu từ bán hàng, cung cấp dịch vụ và doanh thu khác (1)</field>
+            <field name="code">b03_01</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="3"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 1)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_02" model="account.financial.html.report.line">
+            <field name="name">2. Tiền chi trả cho người cung cấp hàng hóa và dịch vụ (2)</field>
+            <field name="code">b03_02</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="4"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 2)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_03" model="account.financial.html.report.line">
+            <field name="name">3. Tiền chi trả cho người lao động (3)</field>
+            <field name="code">b03_03</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="5"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 3)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_04" model="account.financial.html.report.line">
+            <field name="name">4. Tiền lãi vay đã trả (4)</field>
+            <field name="code">b03_04</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="6"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 4)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_05" model="account.financial.html.report.line">
+            <field name="name">5. Thuế thu nhập doanh nghiệp đã nộp (5)</field>
+            <field name="code">b03_05</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="7"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 5)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_06" model="account.financial.html.report.line">
+            <field name="name">6. Tiền thu khác từ hoạt động kinh doanh (6)</field>
+            <field name="code">b03_06</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="8"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 6)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_07" model="account.financial.html.report.line">
+            <field name="name">7. Tiền chi khác từ hoạt động doanh (7)</field>
+            <field name="code">b03_07</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="9"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_7', '=', 7)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_20" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần từ hoạt động kinh doanh (20)</field>
+            <field name="code">b03_20</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_01.balance + b03_02.balance + b03_03.balance + b03_04.balance + b03_05.balance + b03_06.balance + b03_07.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="10"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_ii" model="account.financial.html.report.line">
+            <field name="name">II. Lưu chuyển tiền hoạt động đầu tư</field>
+            <field name="code">b03_ii</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="11"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_21" model="account.financial.html.report.line">
+            <field name="name">1. Tiền chi để mua sắm xây dựng TSCĐ, BĐS đầu tư và các tài sản dài hạn khác (21)</field>
+            <field name="code">b03_21</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="12"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 21)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="account_financial_cash_flow_statement_b03_22" model="account.financial.html.report.line">
+            <field name="name">2. Tiền thu từ thanh lý, nhượng bán TSCĐ, BĐS đầu tư và các tài sản dài hạn khác
+                (22)</field>
+            <field name="code">b03_22</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_221.balance - b03_222.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="13"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="account_financial_cash_flow_statement_b03_221" model="account.financial.html.report.line">
+            <field name="name">1. Tiền thu từ thanh lý, nhượng bán TSCĐ, BĐS đầu tư và các tài sản dài hạn khác</field>
+            <field name="code">b03_221</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="14"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_221', '=', 221)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="account_financial_cash_flow_statement_b03_222" model="account.financial.html.report.line">
+            <field name="name">2. Tiền chi từ thanh lý, nhượng bán TSCĐ, BĐS đầu tư và các tài sản dài hạn khác</field>
+            <field name="code">b03_222</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="15"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_222', '=', 222)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="account_financial_cash_flow_statement_b03_23" model="account.financial.html.report.line">
+            <field name="name">3. Tiền chi cho vay, mua các công cụ nợ của đơn vị khác (23)</field>
+            <field name="code">b03_23</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="16"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_23', '=', 23)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_24" model="account.financial.html.report.line">
+            <field name="name">4. Tiền thu hồi cho vay, bán lại các công cụ nợ của đơn vị khác (24)</field>
+            <field name="code">b03_24</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="17"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 24)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_25" model="account.financial.html.report.line">
+            <field name="name">5. Tiền chi đầu tư góp vốn vào đơn vị khác (25)</field>
+            <field name="code">b03_25</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="18"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 25)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_26" model="account.financial.html.report.line">
+            <field name="name">6. Tiền thu hồi đầu tư góp vốn vào đơn vị khác (26)</field>
+            <field name="code">b03_26</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="19"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_26', '=', 26)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_27" model="account.financial.html.report.line">
+            <field name="name">7. Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia (27)</field>
+            <field name="code">b03_27</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="20"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_27', '=', 27)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_30" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần từ hoạt động đầu tư (30)</field>
+            <field name="code">b03_30</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_21.balance + b03_22.balance + b03_23.balance + b03_24.balance + b03_25.balance + b03_26.balance + b03_27.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="21"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_iii" model="account.financial.html.report.line">
+            <field name="name">III. Lưu chuyển tiền từ hoạt động tài chính</field>
+            <field name="code">b03_iii</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="22"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_31" model="account.financial.html.report.line">
+            <field name="name">1. Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu (31)</field>
+            <field name="code">b03_31</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="23"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 31)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_32" model="account.financial.html.report.line">
+            <field name="name">2. Tiền chi trả vốn góp cho các chủ sở hữu, mua lại cổ phiếu của doanh nghiệp đã phát
+                hành (32)</field>
+            <field name="code">b03_32</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="24"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 32)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_33" model="account.financial.html.report.line">
+            <field name="name">3. Tiền vay ngắn hạn, dài hạn nhận được (33)</field>
+            <field name="code">b03_33</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="25"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 33)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_34" model="account.financial.html.report.line">
+            <field name="name">4. Tiền chi trả nợ gốc vay (34)</field>
+            <field name="code">b03_34</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="26"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 34)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_35" model="account.financial.html.report.line">
+            <field name="name">5. Tiền chi trả nợ thuê tài chính (35)</field>
+            <field name="code">b03_35</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="27"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 35)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_36" model="account.financial.html.report.line">
+            <field name="name">6. Tiền chi trả nợ gốc vay (36)</field>
+            <field name="code">b03_36</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="28"/>
+            <field name="groupby">partner_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_36', '=', 36)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_40" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần từ hoạt động tài chính (40)</field>
+            <field name="code">b03_40</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_31.balance + b03_32.balance + b03_33.balance + b03_34.balance + b03_35.balance + b03_36.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="29"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_50" model="account.financial.html.report.line">
+            <field name="name">Lưu chuyển tiền thuần trong năm (50)</field>
+            <field name="code">b03_50</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_20.balance + b03_30.balance + b03_40.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="30"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_60" model="account.financial.html.report.line">
+            <field name="name">Tiền và tương đương tiền đầu kỳ (60)</field>
+            <field name="code">b03_60</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_111.balance + b03_112.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="31"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_111" model="account.financial.html.report.line">
+            <field name="name"> Tiền và tương đương tiền đầu kỳ (111)</field>
+            <field name="code">b03_111</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="32"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn_111', '=', 111)]"/>
+            <field name="special_date_changer">to_beginning_of_period</field>
+            <field name="show_domain">never</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_112" model="account.financial.html.report.line">
+            <field name="name"> Tiền và tương đương tiền đầu kỳ (112)</field>
+            <field name="code">b03_112</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="33"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 112)]"/>
+            <field name="special_date_changer">to_beginning_of_period</field>
+            <field name="show_domain">never</field>
+        </record>
+<!--        <record id="account_financial_cash_flow_statement_b03_611" model="account.financial.html.report.line">-->
+<!--            <field name="name"> Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ (611)</field>-->
+<!--            <field name="code">b03_611</field>-->
+<!--            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>-->
+<!--            <field name="formulas">balance = sum.balance</field>-->
+<!--            <field name="level" eval="2"/>-->
+<!--            <field name="sequence" eval="34"/>-->
+<!--            <field name="groupby">related_account_id</field>-->
+<!--            <field name="green_on_positive" eval="True"/>-->
+<!--            <field name="domain" eval="[('b03_dn', '=', 611)]"/>-->
+<!--            <field name="special_date_changer">strict_range</field>-->
+<!--        </record>-->
+        <record id="account_financial_cash_flow_statement_b03_61" model="account.financial.html.report.line">
+            <field name="name">Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ (61)</field>
+            <field name="code">b03_61</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_611.balance + b03_612.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="35"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="account_financial_cash_flow_statement_b03_611" model="account.financial.html.report.line">
+            <field name="name"> Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ (611)</field>
+            <field name="code">b03_611</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="36"/>
+            <field name="groupby">related_account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 611)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_612" model="account.financial.html.report.line">
+            <field name="name"> Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ (612)</field>
+            <field name="code">b03_612</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="37"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b03_dn', '=', 611)]"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+        <record id="account_financial_cash_flow_statement_b03_70" model="account.financial.html.report.line">
+            <field name="name">Tiền và tương đương tiền cuối năm (70)</field>
+            <field name="code">b03_70</field>
+            <field name="financial_report_id" ref="account_financial_report_cash_flow_statement_b03"/>
+            <field name="formulas">balance = b03_50.balance + b03_60.balance + b03_61.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="38"/>
+            <field name="groupby">account_id</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <!--        action to create menu-->
+        <record id="action_account_financial_report_cash_flow_statement_b03" model="ir.actions.client">
+            <field name="name">### Lưu chuyển tiền tệ (B03-DN)</field>
+            <field name="tag">account_report</field>
+            <field name="context"
+                   eval="{'model': 'account.financial.html.report', 'id': ref('account_financial_report_cash_flow_statement_b03')}"/>
+        </record>
+<!--        <record id="popup_export_html_finance_report_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Xem báo cáo</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">popup.export.html.finance.report</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="context">{'default_is_bao_cao_luu_chuyen_tien_te':True}</field>-->
+<!--            <field name="view_id" ref="advanced_vn_report.popup_export_html_finance_report_view_form"/>-->
+<!--        </record>-->
+<!--        <menuitem id="popup_export_html_finance_report_menu" name="# Lưu chuyển tiền tệ (B03-DN)" parent="account.account_reports_legal_statements_menu" action="popup_export_html_finance_report_action" sequence="5"/>-->
+<!--        <record id="popup_export_html_finance_report_p_and_l_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Xem báo cáo</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">popup.export.html.finance.report</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="context">{'default_is_bao_cao_can_doi_ke_toan':True}</field>-->
+<!--            <field name="view_id" ref="advanced_vn_report.popup_export_html_finance_report_view_form"/>-->
+<!--        </record>-->
+<!--        <menuitem id="popup_export_html_finance_report_p_and_l_menu" name="# Cân đối kế toán (B01-DN)" parent="account.account_reports_legal_statements_menu" action="popup_export_html_finance_report_p_and_l_action" sequence="6"/>-->
+
+    </data>
+</odoo>

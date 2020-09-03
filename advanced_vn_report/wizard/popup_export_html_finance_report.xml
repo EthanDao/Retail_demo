@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="popup_export_html_finance_report_view_form" model="ir.ui.view">
+            <field name="name">popup_export_html_finance_report_view_form</field>
+            <field name="model">popup.export.html.finance.report</field>
+            <field name="arch" type="xml">
+                <form string="popup_export_html_finance_report_form">
+                    <sheet>
+                        <group>
+                            <field name="date_check_from" attrs="{'invisible': [('is_bao_cao_luu_chuyen_tien_te', '=', False)],'required': [('is_bao_cao_luu_chuyen_tien_te', '=', True)]}"/>
+                            <field name="date_check_to" required="1"/>
+                            <field name="is_bao_cao_can_doi_ke_toan" invisible="1"/>
+                            <field name="is_bao_cao_luu_chuyen_tien_te" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm_generate_report" type="object" string="Xem báo cáo" class="oe_highlight"/>
+                        <button string="Hủy" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

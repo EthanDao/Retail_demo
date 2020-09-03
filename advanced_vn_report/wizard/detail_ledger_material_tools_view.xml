@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="detail_ledger_material_tools_view_form" model="ir.ui.view">
+            <field name="name">detail.ledger.material.tools.view.form</field>
+            <field name="model">detail.ledger.material.tools</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <!--                            <field name="in_year" options="{'format':'YYYY'}"/>-->
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <field name="location_children_ids" invisible="1"/>
+                            <field name="location_ids" widget="many2many_tags" required="1" domain="[('id', 'in', location_children_ids)]"/>
+                            <field name="product_ids" widget="many2many_tags" required="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm_export_detail_ledger" type="object" string="Xác nhận"
+                                class="oe_highlight"/>
+                        <button string="Huỷ" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="detail_ledger_material_tools_action" model="ir.actions.act_window">
+            <field name="name">### Sổ chi tiết vật liệu, dụng cụ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">detail.ledger.material.tools</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="advanced_vn_report.detail_ledger_material_tools_view_form"/>
+        </record>
+        <menuitem id="detail_ledger_material_tools_menu" name="### Sổ chi tiết vật liệu, dụng cụ"
+                  parent="account.account_reports_legal_statements_menu" action="detail_ledger_material_tools_action"
+                  sequence="300"/>
+        <menuitem id="detail_ledger_material_tools_menu" name="### Sổ chi tiết vật liệu, dụng cụ"
+                  parent="stock.menu_warehouse_report" action="detail_ledger_material_tools_action"
+                  sequence="300"/>
+
+    </data>
+</odoo>

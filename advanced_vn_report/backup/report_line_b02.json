@@ -1,0 +1,3925 @@
+{
+  "jsonrpc": "2.0",
+  "id": 6750,
+  "result": {
+    "length": 284,
+    "records": [
+      {
+        "id": 1,
+        "name": "DETAILED NET PROFIT",
+        "code": "DETAILED_NEP",
+        "domain": "[('account_id.user_type_id.include_initial_balance', '=', False)]",
+        "formulas": "debit = sum.debit; credit = sum.credit",
+        "level": 0,
+        "sequence": 1,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 2,
+        "name": "NET PROFIT",
+        "code": "NEP",
+        "domain": false,
+        "formulas": "balance = INC.balance - AEX.balance",
+        "level": 0,
+        "sequence": 1,
+        "parent_id": false,
+        "report_code": "60"
+      },
+      {
+        "id": 3,
+        "name": "Income",
+        "code": "INC",
+        "domain": false,
+        "formulas": "balance=OPINC.balance+OIN.balance-INC_DED.balance-COS.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          2,
+          "NET PROFIT"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 4,
+        "name": "Gross Profit",
+        "code": "GRP",
+        "domain": false,
+        "formulas": "balance = OPINC.balance - INC_DED.balance - COS.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          3,
+          "Income"
+        ],
+        "report_code": "20"
+      },
+      {
+        "id": 5,
+        "name": "Operating Income",
+        "code": "OPINC",
+        "domain": "[('account_id.user_type_id', '=', 14), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          4,
+          "Gross Profit"
+        ],
+        "report_code": "01"
+      },
+      {
+        "id": 6,
+        "name": "Income Deduction",
+        "code": "INC_DED",
+        "domain": "[('account_id.user_type_id', '=', 19), ('ctp_account_ids.user_type_id', 'not in', [14])]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          4,
+          "Gross Profit"
+        ],
+        "report_code": "02"
+      },
+      {
+        "id": 7,
+        "name": "Gross Income",
+        "code": "GINC",
+        "domain": false,
+        "formulas": "balance = OPINC.balance - INC_DED.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          4,
+          "Gross Profit"
+        ],
+        "report_code": "10"
+      },
+      {
+        "id": 8,
+        "name": "Cost of Revenue",
+        "code": "COS",
+        "domain": "[('account_id.user_type_id', '=', 17), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          4,
+          "Gross Profit"
+        ],
+        "report_code": "11"
+      },
+      {
+        "id": 9,
+        "name": "Financial Income",
+        "code": "FIN_INC",
+        "domain": "[('account_id.user_type_id', '=', 18), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          4,
+          "Gross Profit"
+        ],
+        "report_code": "21"
+      },
+      {
+        "id": 10,
+        "name": "Other Income",
+        "code": "OIN",
+        "domain": "[('account_id.user_type_id', '=', 13)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          3,
+          "Income"
+        ],
+        "report_code": "31"
+      },
+      {
+        "id": 11,
+        "name": "Expenses",
+        "code": "AEX",
+        "domain": false,
+        "formulas": "balance = EXP.balance + DEP.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          2,
+          "NET PROFIT"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 12,
+        "name": "Expenses",
+        "code": "EXP",
+        "domain": "[('account_id.user_type_id', '=', 16)]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          11,
+          "Expenses"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 13,
+        "name": "Depreciation",
+        "code": "DEP",
+        "domain": "[('account_id.user_type_id', '=', 15)]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          11,
+          "Expenses"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 14,
+        "name": "ASSETS",
+        "code": "TA",
+        "domain": false,
+        "formulas": "balance = CA.balance + FA.balance + PNCA.balance",
+        "level": 0,
+        "sequence": 1,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 15,
+        "name": "Current Assets",
+        "code": "CA",
+        "domain": false,
+        "formulas": "balance=BA.balance+REC.balance+CAS.balance+PRE.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          14,
+          "ASSETS"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 16,
+        "name": "Bank and Cash Accounts",
+        "code": "BA",
+        "domain": "[('account_id.user_type_id', '=', 3)]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          15,
+          "Current Assets"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 17,
+        "name": "Receivables",
+        "code": "REC",
+        "domain": "[('account_id.user_type_id.type', '=', 'receivable')]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          15,
+          "Current Assets"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 18,
+        "name": "Current Assets",
+        "code": "CAS",
+        "domain": "[('account_id.user_type_id', '=', 5)]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          15,
+          "Current Assets"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 19,
+        "name": "Prepayments",
+        "code": "PRE",
+        "domain": "[('account_id.user_type_id', '=', 7)]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          15,
+          "Current Assets"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 20,
+        "name": "Plus Fixed Assets",
+        "code": "FA",
+        "domain": "[('account_id.user_type_id', '=', 8)]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          14,
+          "ASSETS"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 21,
+        "name": "Plus Non-current Assets",
+        "code": "PNCA",
+        "domain": "[('account_id.user_type_id', '=', 6)]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          14,
+          "ASSETS"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 22,
+        "name": "LIABILITIES",
+        "code": "L",
+        "domain": false,
+        "formulas": "balance = CL.balance + NL.balance",
+        "level": 0,
+        "sequence": 2,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 23,
+        "name": "Current Liabilities",
+        "code": "CL",
+        "domain": false,
+        "formulas": "balance = CL1.balance + CL2.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          22,
+          "LIABILITIES"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 24,
+        "name": "Current Liabilities",
+        "code": "CL1",
+        "domain": "[('account_id.user_type_id', 'in', [9, 4])]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          23,
+          "Current Liabilities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 25,
+        "name": "Payables",
+        "code": "CL2",
+        "domain": "[('account_id.user_type_id.type', '=', 'payable')]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          23,
+          "Current Liabilities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 26,
+        "name": "Non-current Liabilities",
+        "code": "NL",
+        "domain": "[('account_id.user_type_id', '=', 10)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          22,
+          "LIABILITIES"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 27,
+        "name": "NET ASSETS",
+        "code": "NA",
+        "domain": false,
+        "formulas": "balance = TA.balance - L.balance",
+        "level": 0,
+        "sequence": 3,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 28,
+        "name": "EQUITY",
+        "code": "EQ",
+        "domain": false,
+        "formulas": "balance=UNAFFECTED_EARNINGS.balance+RETAINED_EARNINGS.balance",
+        "level": 0,
+        "sequence": 4,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 29,
+        "name": "CURRENT YEAR EARNINGS",
+        "code": "UNAFFECTED_EARNINGS",
+        "domain": "[('account_id.user_type_id', 'in', [14, 19, 13, 18, 17, 16, 15])]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          28,
+          "EQUITY"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 30,
+        "name": "RETAINED EARNINGS",
+        "code": "RETAINED_EARNINGS",
+        "domain": "[('account_id.user_type_id', '=', 11)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          28,
+          "EQUITY"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 31,
+        "name": "Net increase in cash and cash equivalents",
+        "code": false,
+        "domain": false,
+        "formulas": "balance=OP.balance+FI.balance+IN.balance+UNC.balance+REGUL.balance",
+        "level": 0,
+        "sequence": 1,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 32,
+        "name": "Cash flows from operating activities",
+        "code": "OP",
+        "domain": false,
+        "formulas": "balance=PRECUS.balance+CACUS.balance+PRESUP.balance+LCP.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          31,
+          "Net increase in cash and cash equivalents"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 33,
+        "name": "Advance Payments received from customers",
+        "code": "PRECUS",
+        "domain": "[('account_id.internal_type', '=', 'receivable')]",
+        "formulas": "balance = -sum.amount_residual",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          32,
+          "Cash flows from operating activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 34,
+        "name": "Cash received from operating activities",
+        "code": "CACUS",
+        "domain": "[('credit', '>', 0), ('account_id.tag_ids', '=', 1)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          32,
+          "Cash flows from operating activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 35,
+        "name": "Advance payments made to suppliers",
+        "code": "PRESUP",
+        "domain": "[('account_id.internal_type', '=', 'payable')]",
+        "formulas": "balance = -sum.amount_residual",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          32,
+          "Cash flows from operating activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 36,
+        "name": "Cash paid for operating activities",
+        "code": "LCP",
+        "domain": "[('debit', '>', 0), ('account_id.tag_ids', '=', 1)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          32,
+          "Cash flows from operating activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 37,
+        "name": "Cash flows from investing & extraordinary\n\t\t\t\tactivities\n\t\t\t",
+        "code": "IN",
+        "domain": false,
+        "formulas": "balance = INV_IN.balance + INV_OUT.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          31,
+          "Net increase in cash and cash equivalents"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 38,
+        "name": "Cash in",
+        "code": "INV_IN",
+        "domain": "[('credit', '>', 0), ('account_id.tag_ids', '=', 3)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          37,
+          "Cash flows from investing & extraordinary\n\t\t\t\tactivities\n\t\t\t"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 39,
+        "name": "Cash out",
+        "code": "INV_OUT",
+        "domain": "[('debit', '>', 0), ('account_id.tag_ids', '=', 3)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          37,
+          "Cash flows from investing & extraordinary\n\t\t\t\tactivities\n\t\t\t"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 40,
+        "name": "Cash flows from financing activities",
+        "code": "FI",
+        "domain": false,
+        "formulas": "balance = FI_IN.balance + FI_OUT.balance",
+        "level": 1,
+        "sequence": 3,
+        "parent_id": [
+          31,
+          "Net increase in cash and cash equivalents"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 41,
+        "name": "Cash in",
+        "code": "FI_IN",
+        "domain": "[('credit', '>', 0), '|', ('account_id.user_type_id', '=', 18), ('account_id.tag_ids', '=', 2)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          40,
+          "Cash flows from financing activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 42,
+        "name": "Cash out",
+        "code": "FI_OUT",
+        "domain": "[('debit', '>', 0), '|', ('account_id.user_type_id', '=', 18), ('account_id.tag_ids', '=', 2)]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          40,
+          "Cash flows from financing activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 43,
+        "name": "Cash flows from unclassified activities",
+        "code": "UNC",
+        "domain": false,
+        "formulas": "balance = UNC_IN.balance + UNC_OUT.balance",
+        "level": 1,
+        "sequence": 4,
+        "parent_id": [
+          31,
+          "Net increase in cash and cash equivalents"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 44,
+        "name": "Cash in",
+        "code": "UNC_IN",
+        "domain": "[('credit', '>', 0), ('account_id.internal_type', '=', 'other'), ('account_id.tag_ids', 'not in', [2, 3, 1])]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          43,
+          "Cash flows from unclassified activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 45,
+        "name": "Cash out",
+        "code": "UNC_OUT",
+        "domain": "[('debit', '>', 0), ('account_id.internal_type', '=', 'other'), ('account_id.tag_ids', 'not in', [2, 3, 1])]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          43,
+          "Cash flows from unclassified activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 46,
+        "name": "Minus previously recorded advance payments (already\n\t\t\t\tin the starting balance)\n\t\t\t",
+        "code": "REGUL",
+        "domain": false,
+        "formulas": "balance=(CASHEND.balance-CASHSTART.balance)-(OP.balance+FI.balance+IN.balance+UNC.balance)",
+        "level": 1,
+        "sequence": 5,
+        "parent_id": [
+          31,
+          "Net increase in cash and cash equivalents"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 47,
+        "name": "Cash and cash equivalents, beginning of period",
+        "code": "CASHSTART",
+        "domain": "[('account_id.internal_type', '=', 'liquidity')]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 48,
+        "name": "Cash and cash equivalents, closing balance",
+        "code": "CASHEND",
+        "domain": "[('account_id.internal_type', '=', 'liquidity')]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 49,
+        "name": "CASH",
+        "code": false,
+        "domain": false,
+        "formulas": false,
+        "level": 1,
+        "sequence": 1,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 50,
+        "name": "Cash received",
+        "code": "CR",
+        "domain": "[('account_id.user_type_id.type', '=', 'liquidity')]",
+        "formulas": "balance = sum.debit",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          49,
+          "CASH"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 51,
+        "name": "Cash spent",
+        "code": "CS",
+        "domain": "[('account_id.user_type_id.type', '=', 'liquidity')]",
+        "formulas": "balance = -sum.credit",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          49,
+          "CASH"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 52,
+        "name": "Cash surplus",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = CR.balance + CS.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          49,
+          "CASH"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 53,
+        "name": "Closing bank balance",
+        "code": false,
+        "domain": "[('account_id.internal_type', '=', 'liquidity')]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          49,
+          "CASH"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 54,
+        "name": "PROFITABILITY",
+        "code": false,
+        "domain": false,
+        "formulas": false,
+        "level": 1,
+        "sequence": 2,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 55,
+        "name": "Income",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = INC.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          54,
+          "PROFITABILITY"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 56,
+        "name": "Cost of Revenue",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = COS.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          54,
+          "PROFITABILITY"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 57,
+        "name": "Gross profit",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = GRP.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          54,
+          "PROFITABILITY"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 58,
+        "name": "Expenses",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = AEX.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          54,
+          "PROFITABILITY"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 59,
+        "name": "Net Profit",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = NEP.balance",
+        "level": 2,
+        "sequence": 5,
+        "parent_id": [
+          54,
+          "PROFITABILITY"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 60,
+        "name": "BALANCE SHEET",
+        "code": false,
+        "domain": false,
+        "formulas": false,
+        "level": 1,
+        "sequence": 3,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 61,
+        "name": "Debtors",
+        "code": "DEB",
+        "domain": "[('account_id.user_type_id.type', '=', 'receivable')]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          60,
+          "BALANCE SHEET"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 62,
+        "name": "Creditors",
+        "code": "CRE",
+        "domain": "[('account_id.user_type_id.type', '=', 'payable')]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          60,
+          "BALANCE SHEET"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 63,
+        "name": "Net assets",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = NA.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          60,
+          "BALANCE SHEET"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 64,
+        "name": "PERFORMANCE",
+        "code": false,
+        "domain": false,
+        "formulas": false,
+        "level": 1,
+        "sequence": 4,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 65,
+        "name": "Gross profit margin (gross profit / operating\n\t\t\t\tincome)\n\t\t\t",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = GRP.balance / OPINC.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          64,
+          "PERFORMANCE"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 66,
+        "name": "Net profit margin (net profit / income)",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = NEP.balance / INC.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          64,
+          "PERFORMANCE"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 67,
+        "name": "Return on investments (net profit / assets)",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = NEP.balance / TA.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          64,
+          "PERFORMANCE"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 68,
+        "name": "POSITION",
+        "code": false,
+        "domain": false,
+        "formulas": false,
+        "level": 1,
+        "sequence": 5,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 69,
+        "name": "Average debtors days",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = DEB.balance / OPINC.balance * NDays\n\t\t\t",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          68,
+          "POSITION"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 70,
+        "name": "Average creditors days",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = -CRE.balance / OPINC.balance * NDays\n\t\t\t",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          68,
+          "POSITION"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 71,
+        "name": "Short term cash forecast",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = DEB.balance + CRE.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          68,
+          "POSITION"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 72,
+        "name": "Current assets to liabilities",
+        "code": false,
+        "domain": false,
+        "formulas": "balance = CA.balance / L.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          68,
+          "POSITION"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 291,
+        "name": "Taxed Purchase of Goods & Services",
+        "code": "VNTAX_IN",
+        "domain": false,
+        "formulas": "balance = VNTAX_IN_BALANCE.balance + VNTAX_IN_BASE.balance",
+        "level": 0,
+        "sequence": 1,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 292,
+        "name": "VAT on purchase of goods and services",
+        "code": "VNTAX_IN_BALANCE",
+        "domain": false,
+        "formulas": "balance = VNTAX_IN_BALANCE_EXEMPTION.balance + VNTAX_IN_BALANCE_00.balance + VNTAX_IN_BALANCE_05.balance + VNTAX_IN_BALANCE_10.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          291,
+          "Taxed Purchase of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 293,
+        "name": "VAT Exemption on purchase of goods and services",
+        "code": "VNTAX_IN_BALANCE_EXEMPTION",
+        "domain": false,
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          292,
+          "VAT on purchase of goods and services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 294,
+        "name": "0% VAT on purchase of goods and services",
+        "code": "VNTAX_IN_BALANCE_00",
+        "domain": false,
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          292,
+          "VAT on purchase of goods and services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 295,
+        "name": "5% VAT on purchase of goods and services",
+        "code": "VNTAX_IN_BALANCE_05",
+        "domain": "[('tax_line_id.tag_ids', 'in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          292,
+          "VAT on purchase of goods and services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 296,
+        "name": "10% VAT on purchase of goods and services",
+        "code": "VNTAX_IN_BALANCE_10",
+        "domain": "[('tax_line_id.tag_ids', 'in', [13])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          292,
+          "VAT on purchase of goods and services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 297,
+        "name": "Untaxed Purchase of Goods & Services",
+        "code": "VNTAX_IN_BASE",
+        "domain": false,
+        "formulas": "balance = VNTAX_IN_BASE_EXEMPTION.balance + VNTAX_IN_BASE_00.balance + VNTAX_IN_BASE_05.balance + VNTAX_IN_BASE_10.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          291,
+          "Taxed Purchase of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 298,
+        "name": "Untaxed Purchase of Goods & Services taxed VAT Exemption",
+        "code": "VNTAX_IN_BASE_EXEMPTION",
+        "domain": "[('tax_ids.tag_ids', 'in', [149])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          297,
+          "Untaxed Purchase of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 299,
+        "name": "Untaxed Purchase of Goods & Services taxed 0%",
+        "code": "VNTAX_IN_BASE_00",
+        "domain": "[('tax_ids.tag_ids', 'in', [15])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          297,
+          "Untaxed Purchase of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 300,
+        "name": "Untaxed Purchase of Goods & Services taxed 5%",
+        "code": "VNTAX_IN_BASE_05",
+        "domain": "[('tax_ids.tag_ids', 'in', [16])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          297,
+          "Untaxed Purchase of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 301,
+        "name": "Untaxed Purchase of Goods & Services taxed 10%",
+        "code": "VNTAX_IN_BASE_10",
+        "domain": "[('tax_ids.tag_ids', 'in', [17])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          297,
+          "Untaxed Purchase of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 302,
+        "name": "Taxed Sales of Goods & Services",
+        "code": "VNTAX_OUT",
+        "domain": false,
+        "formulas": "balance = VNTAX_OUT_BALANCE.balance + VNTAX_OUT_BASE.balance",
+        "level": 0,
+        "sequence": 2,
+        "parent_id": false,
+        "report_code": false
+      },
+      {
+        "id": 303,
+        "name": "Output VAT",
+        "code": "VNTAX_OUT_BALANCE",
+        "domain": false,
+        "formulas": "balance = VNTAX_OUT_BALANCE_EXEMPTION.balance + VNTAX_OUT_BALANCE_00.balance + VNTAX_OUT_BALANCE_05.balance + VNTAX_OUT_BALANCE_10.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          302,
+          "Taxed Sales of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 304,
+        "name": "Exemption Output VAT",
+        "code": "VNTAX_OUT_BALANCE_EXEMPTION",
+        "domain": false,
+        "formulas": false,
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          303,
+          "Output VAT"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 305,
+        "name": "0% Output VAT",
+        "code": "VNTAX_OUT_BALANCE_00",
+        "domain": false,
+        "formulas": false,
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          303,
+          "Output VAT"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 306,
+        "name": "5% Output VAT",
+        "code": "VNTAX_OUT_BALANCE_05",
+        "domain": "[('tax_line_id.tag_ids', 'in', [21])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          303,
+          "Output VAT"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 307,
+        "name": "10% Output VAT",
+        "code": "VNTAX_OUT_BALANCE_10",
+        "domain": "[('tax_line_id.tag_ids', 'in', [22])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          303,
+          "Output VAT"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 308,
+        "name": "Untaxed Sales of Goods & Services",
+        "code": "VNTAX_OUT_BASE",
+        "domain": false,
+        "formulas": "balance = VNTAX_OUT_BASE_EXEMPTION.balance + VNTAX_OUT_BASE_00.balance + VNTAX_OUT_BASE_05.balance + VNTAX_OUT_BASE_10.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          302,
+          "Taxed Sales of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 309,
+        "name": "Untaxed Sales of Goods & Services taxed VAT Exemption",
+        "code": "VNTAX_OUT_BASE_EXEMPTION",
+        "domain": "[('tax_ids.tag_ids', 'in', [150])]",
+        "formulas": "balance = - sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          308,
+          "Untaxed Sales of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 310,
+        "name": "Untaxed Sales of Goods & Services taxed 0%",
+        "code": "VNTAX_OUT_BASE_00",
+        "domain": "[('tax_ids.tag_ids', 'in', [24])]",
+        "formulas": "balance = - sum.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          308,
+          "Untaxed Sales of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 311,
+        "name": "Untaxed Sales of Goods & Services taxed 5%",
+        "code": "VNTAX_OUT_BASE_05",
+        "domain": "[('tax_ids.tag_ids', 'in', [25])]",
+        "formulas": "balance = - sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          308,
+          "Untaxed Sales of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 312,
+        "name": "Untaxed Sales of Goods & Services taxed 10%",
+        "code": "VNTAX_OUT_BASE_10",
+        "domain": "[('tax_ids.tag_ids', 'in', [26])]",
+        "formulas": "balance = - sum.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          308,
+          "Untaxed Sales of Goods & Services"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 313,
+        "name": "17. Profits after enterprise income tax (60=50 - 51 - 52)",
+        "code": "PNL60",
+        "domain": false,
+        "formulas": "balance = PNL50.balance - PNL51.balance - PNL52.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": false,
+        "report_code": "60"
+      },
+      {
+        "id": 314,
+        "name": "14. Total net profits before tax (50 = 30 + 40)",
+        "code": "PNL50",
+        "domain": false,
+        "formulas": "balance = PNL30.balance + PNL40.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          313,
+          "17. Profits after enterprise income tax (60=50 - 51 - 52)"
+        ],
+        "report_code": "50"
+      },
+      {
+        "id": 315,
+        "name": "15. Current corporate income tax expenses",
+        "code": "PNL51",
+        "domain": "[('account_id.code', '=like', '8211%'), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          313,
+          "17. Profits after enterprise income tax (60=50 - 51 - 52)"
+        ],
+        "report_code": "51"
+      },
+      {
+        "id": 316,
+        "name": "16. Deferred corporate income tax expenses",
+        "code": "PNL52",
+        "domain": "[('account_id.code', '=like', '8212%'), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 1,
+        "sequence": 3,
+        "parent_id": [
+          313,
+          "17. Profits after enterprise income tax (60=50 - 51 - 52)"
+        ],
+        "report_code": "52"
+      },
+      {
+        "id": 317,
+        "name": "13. Other profits (40 = 31 - 32)",
+        "code": "PNL40",
+        "domain": false,
+        "formulas": "balance = PNL31.balance - PNL32.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          314,
+          "14. Total net profits before tax (50 = 30 + 40)"
+        ],
+        "report_code": "40"
+      },
+      {
+        "id": 318,
+        "name": "11. Other Income",
+        "code": "PNL31",
+        "domain": "[('account_id.user_type_id', '=', 13), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          317,
+          "13. Other profits (40 = 31 - 32)"
+        ],
+        "report_code": "31"
+      },
+      {
+        "id": 319,
+        "name": "12. Other Expenses",
+        "code": "PNL32",
+        "domain": "[('account_id.code', '=like', '811%'), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          317,
+          "13. Other profits (40 = 31 - 32)"
+        ],
+        "report_code": "32"
+      },
+      {
+        "id": 320,
+        "name": "10. Net profits from operating activities 30 = 20 + (21 - 22) - (24 + 25)",
+        "code": "PNL30",
+        "domain": false,
+        "formulas": "balance = PNL20.balance + (PNL21.balance - PNL22.balance) - (PNL24.balance + PNL25.balance)",
+        "level": 2,
+        "sequence": 0,
+        "parent_id": [
+          314,
+          "14. Total net profits before tax (50 = 30 + 40)"
+        ],
+        "report_code": "30"
+      },
+      {
+        "id": 321,
+        "name": "5. Gross revenues from sales and services rendered (20=10-11)",
+        "code": "PNL20",
+        "domain": false,
+        "formulas": "balance = PNL10.balance - PNL11.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          320,
+          "10. Net profits from operating activities 30 = 20 + (21 - 22) - (24 + 25)"
+        ],
+        "report_code": "20"
+      },
+      {
+        "id": 322,
+        "name": "6. Financial income",
+        "code": "PNL21",
+        "domain": "[('account_id.user_type_id', '=', 18), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = -sum.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          320,
+          "10. Net profits from operating activities 30 = 20 + (21 - 22) - (24 + 25)"
+        ],
+        "report_code": "21"
+      },
+      {
+        "id": 323,
+        "name": "7. Financial expenses",
+        "code": "PNL22",
+        "domain": "[('account_id.code', '=like', '635%'), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 1,
+        "sequence": 3,
+        "parent_id": [
+          320,
+          "10. Net profits from operating activities 30 = 20 + (21 - 22) - (24 + 25)"
+        ],
+        "report_code": "22"
+      },
+      {
+        "id": 324,
+        "name": " - In which: Interest expenses",
+        "code": "PNL23",
+        "domain": "[('account_id.code', '=like', '331%'), ('ctp_account_ids.code', '=like', '635%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          320,
+          "10. Net profits from operating activities 30 = 20 + (21 - 22) - (24 + 25)"
+        ],
+        "report_code": "23"
+      },
+      {
+        "id": 325,
+        "name": "8. Selling expenses",
+        "code": "PNL24",
+        "domain": "[('account_id.code', '=like', '641%'), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 1,
+        "sequence": 5,
+        "parent_id": [
+          320,
+          "10. Net profits from operating activities 30 = 20 + (21 - 22) - (24 + 25)"
+        ],
+        "report_code": "24"
+      },
+      {
+        "id": 326,
+        "name": "9. General administration expenses",
+        "code": "PNL25",
+        "domain": "[('account_id.tag_ids', '=', 102), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 1,
+        "sequence": 6,
+        "parent_id": [
+          320,
+          "10. Net profits from operating activities 30 = 20 + (21 - 22) - (24 + 25)"
+        ],
+        "report_code": "25"
+      },
+      {
+        "id": 327,
+        "name": "3. Net revenues from sales and services rendered (10 = 01 - 02)",
+        "code": "PNL10",
+        "domain": false,
+        "formulas": "balance = PNL01.balance - PNL02.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          321,
+          "5. Gross revenues from sales and services rendered (20=10-11)"
+        ],
+        "report_code": "10"
+      },
+      {
+        "id": 328,
+        "name": "4. Costs of goods sold",
+        "code": "PNL11",
+        "domain": "[('account_id.user_type_id', '=', 17), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = sum.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          321,
+          "5. Gross revenues from sales and services rendered (20=10-11)"
+        ],
+        "report_code": "11"
+      },
+      {
+        "id": 329,
+        "name": "1. Revenues from sales and services rendered",
+        "code": "PNL01",
+        "domain": "[('account_id.user_type_id', '=', 14), ('ctp_account_ids.user_type_id', 'not in', [12])]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          327,
+          "3. Net revenues from sales and services rendered (10 = 01 - 02)"
+        ],
+        "report_code": "01"
+      },
+      {
+        "id": 330,
+        "name": "2. Revenue deductions",
+        "code": "PNL02",
+        "domain": "[('account_id.user_type_id', '=', 19), ('ctp_account_ids.user_type_id', 'not in', [14])]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          327,
+          "3. Net revenues from sales and services rendered (10 = 01 - 02)"
+        ],
+        "report_code": "02"
+      },
+      {
+        "id": 331,
+        "name": "Cash and cash equivalents, end of fiscal year (70 = 50 + 60 + 61)",
+        "code": "CFS70",
+        "domain": false,
+        "formulas": "balance = CFS50.balance + CFS60.balance + CFS61.balance",
+        "level": 0,
+        "sequence": 4,
+        "parent_id": false,
+        "report_code": "70"
+      },
+      {
+        "id": 332,
+        "name": "Net cash flows during the fiscal year (50 = 20+30+40)",
+        "code": "CFS50",
+        "domain": false,
+        "formulas": "balance = CFS20.balance + CFS30.balance + CFS40.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          331,
+          "Cash and cash equivalents, end of fiscal year (70 = 50 + 60 + 61)"
+        ],
+        "report_code": "50"
+      },
+      {
+        "id": 333,
+        "name": "Cash and cash equivalents, beginning of fiscal year",
+        "code": "CFS60",
+        "domain": "['|', ('account_id.user_type_id', '=', 3), ('account_id.code', '=like', '113%')]",
+        "formulas": "balance = sum.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          331,
+          "Cash and cash equivalents, end of fiscal year (70 = 50 + 60 + 61)"
+        ],
+        "report_code": "60"
+      },
+      {
+        "id": 334,
+        "name": "Effect of exchange rate fluctuations",
+        "code": "CFS61",
+        "domain": "[('ctp_account_ids.code', '=like', '413%'), '|', ('account_id.user_type_id', '=', 3), ('account_id.code', '=like', '113%')]",
+        "formulas": "balance = sum.balance",
+        "level": 1,
+        "sequence": 3,
+        "parent_id": [
+          331,
+          "Cash and cash equivalents, end of fiscal year (70 = 50 + 60 + 61)"
+        ],
+        "report_code": "61"
+      },
+      {
+        "id": 335,
+        "name": "Net cash flows from operating activities",
+        "code": "CFS20",
+        "domain": false,
+        "formulas": "balance = CFS01.balance + CFS06.balance + CFS02.balance + CFS03.balance + CFS04.balance + CFS05.balance + CFS07.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          332,
+          "Net cash flows during the fiscal year (50 = 20+30+40)"
+        ],
+        "report_code": "20"
+      },
+      {
+        "id": 336,
+        "name": "I. Cash flows from operating activities",
+        "code": "CFSI",
+        "domain": false,
+        "formulas": false,
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 337,
+        "name": "1. Proceeds from sales and services rendered and other revenues",
+        "code": "CFS01",
+        "domain": false,
+        "formulas": "balance = CFS01A.balance + CFS01B.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": "01"
+      },
+      {
+        "id": 338,
+        "name": "1a. Proceeds from sales and services rendered and other revenues (Cash Direct)",
+        "code": "CFS01A",
+        "domain": "[('analytic_tag_ids', 'not in', [4, 7]), ('ctp_account_ids.internal_type', '=', 'liquidity'), '|', '&', ('account_id.user_type_id', 'in', [14, 18]), '|', ('ctp_aml_ids.ctp_account_ids.code', '=like', '121%'), ('ctp_aml_ids.ctp_account_ids.user_type_id', '=', 14), '&', ('account_id.code', '=like', '333%'), ('ctp_aml_ids.ctp_account_ids.user_type_id', 'in', [14, 18])]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 3,
+        "parent_id": [
+          337,
+          "1. Proceeds from sales and services rendered and other revenues"
+        ],
+        "report_code": "01a"
+      },
+      {
+        "id": 339,
+        "name": "1b. Proceeds from sales and services rendered and other revenues (via receivables)",
+        "code": "CFS01B",
+        "domain": "[('account_id.internal_type', '=', 'receivable'), ('credit', '>', 0), ('matched_debit_ids.debit_move_id.ctp_account_ids.user_type_id', 'in', [14, 18]), ('matched_debit_ids.debit_move_id.ctp_aml_ids.analytic_tag_ids', 'not in', [4, 7])]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 4,
+        "parent_id": [
+          337,
+          "1. Proceeds from sales and services rendered and other revenues"
+        ],
+        "report_code": "01b"
+      },
+      {
+        "id": 340,
+        "name": "2. Expenditures paid to suppliers",
+        "code": "CFS02",
+        "domain": "[]",
+        "formulas": "balance = CFS02a.balance + CFS02b.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": "02"
+      },
+      {
+        "id": 341,
+        "name": "2.a. Expenditures paid to suppliers (Cash Direct)",
+        "code": "CFS02a",
+        "domain": "[('debit', '>', 0), '|', '&', ('account_id.code', '=like', '15%'), ('ctp_account_ids.internal_type', '=', 'liquidity'), '&', '&', ('account_id.code', '=like', '1331%'), ('ctp_aml_ids.ctp_account_ids.code', '=like', '15%'), ('ctp_account_ids.internal_type', '=', 'liquidity')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 3,
+        "parent_id": [
+          340,
+          "2. Expenditures paid to suppliers"
+        ],
+        "report_code": "02a"
+      },
+      {
+        "id": 342,
+        "name": "2.b. Expenditures paid to suppliers (Via Payables)",
+        "code": "CFS02b",
+        "domain": "[('account_id.code', '=like', '%331%'), ('debit', '>', 0), '&', '|', ('matched_credit_ids.credit_move_id.ctp_account_ids.code', '=like', '15%'), ('matched_credit_ids.credit_move_id.ctp_account_ids.code', '=like', '3388%'), '&', ('matched_credit_ids.credit_move_id.ctp_aml_ids.matched_credit_ids.credit_move_id.account_id.user_type_id', '!=', 8), ('matched_credit_ids.credit_move_id.ctp_aml_ids.matched_credit_ids.credit_move_id.account_id.code', 'not ilike', '241%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 3,
+        "parent_id": [
+          340,
+          "2. Expenditures paid to suppliers"
+        ],
+        "report_code": "02b"
+      },
+      {
+        "id": 343,
+        "name": "3. Expenditures paid to employees",
+        "code": "CFS03",
+        "domain": "[('debit', '>', 0), ('account_id.code', '=like', '334%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": "03"
+      },
+      {
+        "id": 344,
+        "name": "4. Paid interests",
+        "code": "CFS04",
+        "domain": "[('debit', '>', 0), ('account_id.code', '=like', '331%'), ('matched_credit_ids.credit_move_id.ctp_aml_ids.analytic_tag_ids', 'in', [6]), '|', '|', ('matched_credit_ids.credit_move_id.ctp_account_ids.code', '=like', '635%'), ('matched_credit_ids.credit_move_id.ctp_account_ids.code', '=like', '335%'), ('ctp_account_ids.code', '=like', '242%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": "04"
+      },
+      {
+        "id": 345,
+        "name": "5. Paid enterprise income tax",
+        "code": "CFS05",
+        "domain": "[('ctp_account_ids.code', '=like', '3334%'), ('credit', '>', 0), '|', ('account_id.internal_type', '=', 'liquidity'), ('account_id.code', '=like', '131%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": "05"
+      },
+      {
+        "id": 346,
+        "name": "6. Other proceeds from operating activities",
+        "code": "CFS06",
+        "domain": "",
+        "formulas": "balance = CFS06a.balance - CFS06b.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": "06"
+      },
+      {
+        "id": 347,
+        "name": "7. Other expenditures on operating activities",
+        "code": "CFS07",
+        "domain": "",
+        "formulas": "balance = CFS07a.balance - CFS07b.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          335,
+          "Net cash flows from operating activities"
+        ],
+        "report_code": "07"
+      },
+      {
+        "id": 348,
+        "name": "Net cash flows from investing activities",
+        "code": "CFS30",
+        "domain": false,
+        "formulas": "balance = CFS22.balance + CFS21.balance + CFS23.balance + CFS24.balance + CFS25.balance + CFS26.balance + CFS27.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          332,
+          "Net cash flows during the fiscal year (50 = 20+30+40)"
+        ],
+        "report_code": "30"
+      },
+      {
+        "id": 349,
+        "name": "II. Cash flows from investing activities",
+        "code": "CFSII",
+        "domain": false,
+        "formulas": false,
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 350,
+        "name": "1. Expenditures on purchase and construction of fixed assets and long-term assets",
+        "code": "CFS21",
+        "domain": "[]",
+        "formulas": "balance = CFS21a.balance + CFS21b.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": "21"
+      },
+      {
+        "id": 351,
+        "name": "1.a. Expenditures on purchase and construction of fixed assets and long-term assets (Cash Direct)",
+        "code": "CFS21a",
+        "domain": "[('debit', '>', 0.0), '|', '&', '|', ('account_id.user_type_id', '=', 8), ('account_id.code', '=ilike', '241%'), '|', ('ctp_account_ids.internal_type', '=', 'liquidity'), ('ctp_account_ids.code', '=like', '113%'), '&', '&', ('account_id.code', '=like', '1332%'), '|', ('ctp_aml_ids.ctp_account_ids.user_type_id', '=', 8), ('ctp_aml_ids.ctp_account_ids.code', '=ilike', '241%'), '|', ('ctp_account_ids.internal_type', '=', 'liquidity'), ('ctp_account_ids.code', '=like', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          350,
+          "1. Expenditures on purchase and construction of fixed assets and long-term assets"
+        ],
+        "report_code": "21a"
+      },
+      {
+        "id": 352,
+        "name": "1.b. Expenditures on purchase and construction of fixed assets and long-term assets (Via Payables)",
+        "code": "CFS21b",
+        "domain": "[('account_id.code', '=like', '%331%'), ('debit', '>', 0), '|', '|', ('matched_credit_ids.credit_move_id.ctp_account_ids.user_type_id', 'in', [8]), ('matched_credit_ids.credit_move_id.ctp_account_ids.code', '=ilike', '241%'), '|', ('matched_credit_ids.credit_move_id.ctp_aml_ids.matched_credit_ids.credit_move_id.ctp_account_ids.user_type_id', 'in', [8]), ('matched_credit_ids.credit_move_id.ctp_aml_ids.matched_credit_ids.credit_move_id.ctp_account_ids.code', '=ilike', '241%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          350,
+          "1. Expenditures on purchase and construction of fixed assets and long-term assets"
+        ],
+        "report_code": "21b"
+      },
+      {
+        "id": 353,
+        "name": "2. Proceeds from disposal or transfer of fixed assets and other long-term assets",
+        "code": "CFS22",
+        "domain": "[]",
+        "formulas": "balance = CFS22a.balance + CFS22b.balance + CFS22c.balance + CFS22d.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": "22"
+      },
+      {
+        "id": 354,
+        "name": "2.a. Sales Revenue of fixed assets and other long-term assets (Cash Direct)",
+        "code": "CFS22a",
+        "domain": "[('analytic_tag_ids', 'in', [4]), '|', '&', ('account_id.user_type_id', 'in', (14, 13)), ('ctp_account_ids.internal_type', '=', 'liquidity'), '&', '&', ('account_id.code', '=like', '333%'), ('ctp_aml_ids.ctp_account_ids.user_type_id', 'in', (14, 13)), ('ctp_account_ids.internal_type', '=', 'liquidity')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          353,
+          "2. Proceeds from disposal or transfer of fixed assets and other long-term assets"
+        ],
+        "report_code": "22a"
+      },
+      {
+        "id": 355,
+        "name": "2.b. Sales Revenue of fixed assets and other long-term assets (Via Receivables)",
+        "code": "CFS22b",
+        "domain": "[('account_id.internal_type', '=', 'receivable'), ('credit', '>', 0), ('matched_debit_ids.debit_move_id.ctp_account_ids.user_type_id', 'in', (14, 13)), ('matched_debit_ids.debit_move_id.ctp_aml_ids.analytic_tag_ids', 'in', [4])]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          353,
+          "2. Proceeds from disposal or transfer of fixed assets and other long-term assets"
+        ],
+        "report_code": "22b"
+      },
+      {
+        "id": 356,
+        "name": "2.c. Sales/Disposal Expenses of fixed assets and other long-term assets (Cash Direct)",
+        "code": "CFS22c",
+        "domain": "[('analytic_tag_ids', 'in', [4]), '|', '&', ('account_id.user_type_id', '=', 16), ('ctp_account_ids.internal_type', '=', 'liquidity'), '&', '&', ('account_id.code', '=like', '133%'), ('ctp_aml_ids.ctp_account_ids.user_type_id', '=', 16), ('ctp_account_ids.internal_type', '=', 'liquidity')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 3,
+        "parent_id": [
+          353,
+          "2. Proceeds from disposal or transfer of fixed assets and other long-term assets"
+        ],
+        "report_code": "22c"
+      },
+      {
+        "id": 357,
+        "name": "2.d. Sales/Disposal Expenses of fixed assets and other long-term assets (Via Payables)",
+        "code": "CFS22d",
+        "domain": "[('account_id.internal_type', '=', 'payable'), ('debit', '>', 0), ('matched_credit_ids.credit_move_id.ctp_aml_ids.analytic_tag_ids', '!=', []), ('matched_credit_ids.credit_move_id.ctp_aml_ids.analytic_tag_ids', 'in', [4]), '|', ('matched_credit_ids.credit_move_id.ctp_account_ids.user_type_id', '!=', 8), ('matched_credit_ids.credit_move_id.ctp_account_ids.code', 'not ilike', '241%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 3,
+        "parent_id": [
+          353,
+          "2. Proceeds from disposal or transfer of fixed assets and other long-term assets"
+        ],
+        "report_code": "22d"
+      },
+      {
+        "id": 358,
+        "name": "3. Expenditures on loans and purchase of  debt instruments from other entities",
+        "code": "CFS23",
+        "domain": "[('debit', '>', 0), ('account_id.code', 'ilike', '128%'), ('account_id.code', 'ilike', '171%'), '|', ('ctp_account_ids.user_type_id', '=', 3), ('ctp_account_ids.code', '=like', '113%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": "23"
+      },
+      {
+        "id": 359,
+        "name": "4. Proceeds from lending or repurchase of debt instruments from other entities",
+        "code": "CFS24",
+        "domain": "[('credit', '>', 0.0), '&', '|', '|', ('account_id.code', '=like', '121%'), ('account_id.code', '=like', '128%'), ('account_id.code', '=like', '171%'), '|', ('ctp_account_ids.internal_type', '=', 'liquidity'), ('ctp_account_ids.code', '=like', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": "24"
+      },
+      {
+        "id": 360,
+        "name": "5. Expenditures on equity investments in other entities",
+        "code": "CFS25",
+        "domain": "[]",
+        "formulas": "balance = CFS25a.balance + CFS25b.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": "25"
+      },
+      {
+        "id": 361,
+        "name": "5.a. Expenditures on equity investments in other entities (Cash Direct)",
+        "code": "CFS25a",
+        "domain": "[('debit', '>', 0.0), ('account_id.tag_ids', 'in', [3]), '|', ('ctp_account_ids.internal_type', '=', 'liquidity'), ('ctp_account_ids.code', '=ilike', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          360,
+          "5. Expenditures on equity investments in other entities"
+        ],
+        "report_code": "25a"
+      },
+      {
+        "id": 362,
+        "name": "5.b. Expenditures on equity investments in other entities (Via Payables)",
+        "code": "CFS25b",
+        "domain": "[('debit', '>', 0), ('account_id.code', 'ilike', '%331%'), ('matched_credit_ids.credit_move_id.ctp_account_ids.tag_ids', 'in', [3])]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          360,
+          "5. Expenditures on equity investments in other entities"
+        ],
+        "report_code": "25b"
+      },
+      {
+        "id": 363,
+        "name": "6. Proceed from equity investments in other entities",
+        "code": "CFS26",
+        "domain": "[]",
+        "formulas": "balance = CFS26a.balance + CFS26b.balance",
+        "level": 3,
+        "sequence": 9,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": "26"
+      },
+      {
+        "id": 364,
+        "name": "6.a. Proceed from equity investments in other entities (Cash Direct)",
+        "code": "CFS26a",
+        "domain": "[('credit', '>', 0.0), ('account_id.tag_ids', 'in', [3]), '|', ('ctp_account_ids.internal_type', '=', 'liquidity'), ('ctp_account_ids.code', '=ilike', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 9,
+        "parent_id": [
+          363,
+          "6. Proceed from equity investments in other entities"
+        ],
+        "report_code": "26a"
+      },
+      {
+        "id": 365,
+        "name": "6.b Proceed from equity investments in other entities (Via receivables)",
+        "code": "CFS26b",
+        "domain": "[('credit', '>', 0), ('account_id.internal_type', '=', 'receivable'), ('matched_debit_ids.debit_move_id.ctp_account_ids.tag_ids', 'in', [3])]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 9,
+        "parent_id": [
+          363,
+          "6. Proceed from equity investments in other entities"
+        ],
+        "report_code": "26b"
+      },
+      {
+        "id": 366,
+        "name": "7. Proceed from interests, dividends and distributed profits",
+        "code": "CFS27",
+        "domain": "[]",
+        "formulas": "balance = CFS27a.balance + CFS27b.balance",
+        "level": 3,
+        "sequence": 10,
+        "parent_id": [
+          348,
+          "Net cash flows from investing activities"
+        ],
+        "report_code": "27"
+      },
+      {
+        "id": 367,
+        "name": "7.a. Proceed from interests, dividends and distributed profits (Cash Direct)",
+        "code": "CFS27a",
+        "domain": "[('analytic_tag_ids', 'in', [5]), '|', '&', ('account_id.user_type_id', '=', 18), ('ctp_account_ids.internal_type', '=', 'liquidity'), '&', '&', ('account_id.code', '=like', '333%'), ('ctp_aml_ids.ctp_account_ids.user_type_id', '=', 18), ('ctp_account_ids.internal_type', '=', 'liquidity')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 10,
+        "parent_id": [
+          366,
+          "7. Proceed from interests, dividends and distributed profits"
+        ],
+        "report_code": "27a"
+      },
+      {
+        "id": 368,
+        "name": "7.b. Proceed from interests, dividends and distributed profits (Via Receivables)",
+        "code": "CFS27b",
+        "domain": "[('account_id.internal_type', '=', 'receivable'), ('credit', '>', 0), ('matched_debit_ids.debit_move_id.ctp_account_ids.user_type_id', '=', 18), ('matched_debit_ids.debit_move_id.ctp_aml_ids.analytic_tag_ids', 'in', [5])]",
+        "formulas": "balance = -sum.balance + sum.amount_residual",
+        "level": 3,
+        "sequence": 10,
+        "parent_id": [
+          366,
+          "7. Proceed from interests, dividends and distributed profits"
+        ],
+        "report_code": "27b"
+      },
+      {
+        "id": 369,
+        "name": "Cash flows from financial activities",
+        "code": "CFS40",
+        "domain": false,
+        "formulas": "balance = CFS31.balance - CFS32.balance + CFS33.balance + CFS34.balance + CFS35.balance + CFS36.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          332,
+          "Net cash flows during the fiscal year (50 = 20+30+40)"
+        ],
+        "report_code": "40"
+      },
+      {
+        "id": 370,
+        "name": "III. Cash flows from financial activities",
+        "code": "CFSIII",
+        "domain": false,
+        "formulas": false,
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          369,
+          "Cash flows from financial activities"
+        ],
+        "report_code": false
+      },
+      {
+        "id": 371,
+        "name": "1. Proceeds from issuance of shares and receipt of contributed capital",
+        "code": "CFS31",
+        "domain": "[('credit', '>', 0.0), ('account_id.code', '=like', '411%'), ('account_id.code', 'not like', '41112%'), '|', ('ctp_account_ids.user_type_id', '=', 3), ('ctp_account_ids.code', '=like', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          369,
+          "Cash flows from financial activities"
+        ],
+        "report_code": "31"
+      },
+      {
+        "id": 372,
+        "name": "2. Repayment of contributed capital and repurchase of stock issued",
+        "code": "CFS32",
+        "domain": "[('debit', '>', 0.0), ('account_id.code', '=like', '411%'), ('account_id.code', 'not like', '41112%'), '|', ('ctp_account_ids.user_type_id', '=', 3), ('ctp_account_ids.code', '=like', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          369,
+          "Cash flows from financial activities"
+        ],
+        "report_code": "32"
+      },
+      {
+        "id": 373,
+        "name": "3. Proceeds from borrowings",
+        "code": "CFS33",
+        "domain": "[('account_id.tag_ids', 'in', [27, 28, 29]), ('ctp_account_ids.tag_ids', 'in', [110, 71, 111, 112]), ('debit', '>', 0.0)]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          369,
+          "Cash flows from financial activities"
+        ],
+        "report_code": "33"
+      },
+      {
+        "id": 374,
+        "name": "4. Repayment of principal",
+        "code": "CFS34",
+        "domain": "[('account_id.tag_ids', 'in', [27, 28, 29]), ('ctp_account_ids.tag_ids', 'in', [110, 71, 111, 112]), ('credit', '>', 0.0)]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          369,
+          "Cash flows from financial activities"
+        ],
+        "report_code": "34"
+      },
+      {
+        "id": 375,
+        "name": "5. Repayment of financial principal",
+        "code": "CFS35",
+        "domain": "[('account_id.tag_ids', 'in', [27, 28, 29]), ('ctp_account_ids.tag_ids', '=', 114), ('credit', '>', 0.0)]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          369,
+          "Cash flows from financial activities"
+        ],
+        "report_code": "35"
+      },
+      {
+        "id": 376,
+        "name": "6. Dividends and profits paid to owners",
+        "code": "CFS36",
+        "domain": "[]",
+        "formulas": "balance = CFS36a.balance + CFS36b.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          369,
+          "Cash flows from financial activities"
+        ],
+        "report_code": "36"
+      },
+      {
+        "id": 377,
+        "name": "6.a. Dividends and profits paid to owners (Cash Direct)",
+        "code": "CFS36a",
+        "domain": "['|', '&', '&', ('debit', '>', 0.0), ('account_id.code', '=like', '421%'), '|', ('ctp_account_ids.user_type_id', '=', 3), ('ctp_account_ids.code', '=like', '113%'), '&', '&', '&', ('credit', '>', 0), ('account_id.code', '=like', '3335%'), ('ctp_account_ids.code', '=like', '421%'), '|', ('ctp_aml_ids.ctp_account_ids.user_type_id', '=', 3), ('ctp_aml_ids.ctp_account_ids.user_type_id', '=like', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          376,
+          "6. Dividends and profits paid to owners"
+        ],
+        "report_code": "36a"
+      },
+      {
+        "id": 378,
+        "name": "6.b. Dividends and profits paid to owners (Via Payables)",
+        "code": "CFS36b",
+        "domain": "[('debit', '>', 0.0), ('account_id.code', '=like', '338%'), ('matched_credit_ids.credit_move_id.ctp_account_ids.code', '=like', '421%'), '|', ('ctp_account_ids.user_type_id', '=', 3), ('ctp_account_ids.code', '=like', '113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          376,
+          "6. Dividends and profits paid to owners"
+        ],
+        "report_code": "36b"
+      },
+      {
+        "id": 379,
+        "name": "TOTAL ASSETS (270 = 100 + 200)",
+        "code": "BS270",
+        "domain": false,
+        "formulas": "balance = BS100.balance + BS200.balance",
+        "level": 0,
+        "sequence": 1,
+        "parent_id": false,
+        "report_code": "270"
+      },
+      {
+        "id": 380,
+        "name": "A - CURRENT ASSETS (100 = 110 + 120 + 130 + 140 + 150)",
+        "code": "BS100",
+        "domain": false,
+        "formulas": "balance = BS110.balance + BS120.balance + BS130.balance + BS140.balance + BS150.balance",
+        "level": 1,
+        "sequence": 1,
+        "parent_id": [
+          379,
+          "TOTAL ASSETS (270 = 100 + 200)"
+        ],
+        "report_code": "100"
+      },
+      {
+        "id": 381,
+        "name": "I. Cash and Cash Equivalents (110 = 111 + 112)",
+        "code": "BS110",
+        "domain": false,
+        "formulas": "balance = BS111.balance + BS112.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          380,
+          "A - CURRENT ASSETS (100 = 110 + 120 + 130 + 140 + 150)"
+        ],
+        "report_code": "110"
+      },
+      {
+        "id": 382,
+        "name": "1. Bank & Cash",
+        "code": "BS111",
+        "domain": "['|', ('account_id.user_type_id', '=', 3), ('account_id.code', '=like', '113%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          381,
+          "I. Cash and Cash Equivalents (110 = 111 + 112)"
+        ],
+        "report_code": "111"
+      },
+      {
+        "id": 383,
+        "name": "2. Cash equivalents",
+        "code": "BS112",
+        "domain": "['|', ('account_id.code', '=like', '1281%'), ('account_id.code', '=like', '1288%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          381,
+          "I. Cash and Cash Equivalents (110 = 111 + 112)"
+        ],
+        "report_code": "112"
+      },
+      {
+        "id": 384,
+        "name": "II. Cash flows from investing activities (120 = 121 + 122 + 123)",
+        "code": "BS120",
+        "domain": false,
+        "formulas": "balance = BS121.balance + BS122.balance + BS123.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          380,
+          "A - CURRENT ASSETS (100 = 110 + 120 + 130 + 140 + 150)"
+        ],
+        "report_code": "120"
+      },
+      {
+        "id": 385,
+        "name": "1. Trading securities",
+        "code": "BS121",
+        "domain": "[('account_id.code', '=like', '121%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          384,
+          "II. Cash flows from investing activities (120 = 121 + 122 + 123)"
+        ],
+        "report_code": "121"
+      },
+      {
+        "id": 386,
+        "name": "2. Allowances for decline in value of trading securities",
+        "code": "BS122",
+        "domain": "[('account_id.code', '=like', '2291%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          384,
+          "II. Cash flows from investing activities (120 = 121 + 122 + 123)"
+        ],
+        "report_code": "122"
+      },
+      {
+        "id": 387,
+        "name": "3. Held to maturity investments",
+        "code": "BS123",
+        "domain": "['|', '|', ('account_id.code', '=like', '1281%'), ('account_id.code', '=like', '1282%'), ('account_id.code', '=like', '1288%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          384,
+          "II. Cash flows from investing activities (120 = 121 + 122 + 123)"
+        ],
+        "report_code": "123"
+      },
+      {
+        "id": 388,
+        "name": "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)",
+        "code": "BS130",
+        "domain": false,
+        "formulas": "balance = BS131.balance + BS132.balance + BS133.balance + BS134.balance + BS135.balance + BS136.balance + BS137.balance + BS139.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          380,
+          "A - CURRENT ASSETS (100 = 110 + 120 + 130 + 140 + 150)"
+        ],
+        "report_code": "130"
+      },
+      {
+        "id": 389,
+        "name": "1. Short-term trade receivables",
+        "code": "BS131",
+        "domain": "[('account_id.user_type_id.type', '=', 'receivable')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "131"
+      },
+      {
+        "id": 390,
+        "name": "2. Short-term prepayments to suppliers",
+        "code": "BS132",
+        "domain": "[('account_id.code', '=like', '331%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "132"
+      },
+      {
+        "id": 391,
+        "name": "3. Short-term intra-company receivables",
+        "code": "BS133",
+        "domain": "['|', '|', ('account_id.code', '=like', '1362%'), ('account_id.code', '=like', '1363%'), ('account_id.code', '=like', '1368%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "133"
+      },
+      {
+        "id": 392,
+        "name": "4. Receivables under schedule of construction contract",
+        "code": "BS134",
+        "domain": "[('account_id.code', '=like', '337%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "134"
+      },
+      {
+        "id": 393,
+        "name": "5. Short-term loan receivables",
+        "code": "BS135",
+        "domain": "[('account_id.code', '=like', '1283%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "135"
+      },
+      {
+        "id": 394,
+        "name": "6. Other short-term receivables",
+        "code": "BS136",
+        "domain": "['|', '|', '|', '|', '|', ('account_id.code', '=like', '334%'), ('account_id.code', '=like', '338%'), ('account_id.code', '=like', '1385%'), ('account_id.code', '=like', '1388%'), ('account_id.code', '=like', '141%'), ('account_id.code', '=like', '244%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "136"
+      },
+      {
+        "id": 395,
+        "name": "7. Short-term allowances for doubtful debts",
+        "code": "BS137",
+        "domain": "[('account_id.code', '=like', '2293%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "137"
+      },
+      {
+        "id": 396,
+        "name": "8. Shortage of assets awaiting resolution",
+        "code": "BS139",
+        "domain": "[('account_id.code', '=', '1381')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          388,
+          "III. Short-term receivables (130 = 131 + 132 + 133 + 134 + 135 + 136 + 137 + 139)"
+        ],
+        "report_code": "139"
+      },
+      {
+        "id": 397,
+        "name": "IV. Inventories (140 = 141 + 149)",
+        "code": "BS140",
+        "domain": false,
+        "formulas": "balance = BS141.balance + BS149.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          380,
+          "A - CURRENT ASSETS (100 = 110 + 120 + 130 + 140 + 150)"
+        ],
+        "report_code": "140"
+      },
+      {
+        "id": 398,
+        "name": "1. Inventories",
+        "code": "BS141",
+        "domain": "",
+        "formulas": "balance = BS141a.balance + BS141b.balance + BS141c.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          397,
+          "IV. Inventories (140 = 141 + 149)"
+        ],
+        "report_code": "141"
+      },
+      {
+        "id": 399,
+        "name": "1.a. All Inventories",
+        "code": "BS141a",
+        "domain": "[('account_id.code', '=like', '15%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          398,
+          "1. Inventories"
+        ],
+        "report_code": "141a"
+      },
+      {
+        "id": 400,
+        "name": "1.b. Minus Long-term work in progress",
+        "code": "BS141b",
+        "domain": "",
+        "formulas": "balance = -BS241.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          398,
+          "1. Inventories"
+        ],
+        "report_code": "141b"
+      },
+      {
+        "id": 401,
+        "name": "1.c. Minus Long-term equipment and spare parts for replacement",
+        "code": "BS141c",
+        "domain": "",
+        "formulas": "balance = -BS263.balance",
+        "level": 4,
+        "sequence": 3,
+        "parent_id": [
+          398,
+          "1. Inventories"
+        ],
+        "report_code": "141c"
+      },
+      {
+        "id": 402,
+        "name": "2. Allowances for decline in value of inventories",
+        "code": "BS149",
+        "domain": "[('account_id.code', '=like', '2294%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          397,
+          "IV. Inventories (140 = 141 + 149)"
+        ],
+        "report_code": "149"
+      },
+      {
+        "id": 403,
+        "name": "V. Other current assets (150 = 151 + 152 + 153 + 154 + 155)",
+        "code": "BS150",
+        "domain": false,
+        "formulas": "balance = BS151.balance + BS152.balance + BS153.balance + BS154.balance + BS155.balance",
+        "level": 2,
+        "sequence": 5,
+        "parent_id": [
+          380,
+          "A - CURRENT ASSETS (100 = 110 + 120 + 130 + 140 + 150)"
+        ],
+        "report_code": "150"
+      },
+      {
+        "id": 404,
+        "name": "1. Short-term prepaid expenses",
+        "code": "BS151",
+        "domain": "[('account_id.code', '=like', '242%'), ('analytic_tag_ids', 'in', [2])]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          403,
+          "V. Other current assets (150 = 151 + 152 + 153 + 154 + 155)"
+        ],
+        "report_code": "151"
+      },
+      {
+        "id": 405,
+        "name": "2. Deductible VAT",
+        "code": "BS152",
+        "domain": "[('account_id.code', '=like', '133%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          403,
+          "V. Other current assets (150 = 151 + 152 + 153 + 154 + 155)"
+        ],
+        "report_code": "152"
+      },
+      {
+        "id": 406,
+        "name": "3. Taxes and other receivables from government budget",
+        "code": "BS153",
+        "domain": "[('account_id.code', '=like', '333%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          403,
+          "V. Other current assets (150 = 151 + 152 + 153 + 154 + 155)"
+        ],
+        "report_code": "153"
+      },
+      {
+        "id": 407,
+        "name": "4. Government bonds purchased for resale",
+        "code": "BS154",
+        "domain": "[('account_id.code', '=like', '171%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          403,
+          "V. Other current assets (150 = 151 + 152 + 153 + 154 + 155)"
+        ],
+        "report_code": "154"
+      },
+      {
+        "id": 408,
+        "name": "5. Other current assets",
+        "code": "BS155",
+        "domain": "[('account_id.code', '=like', '2288%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          403,
+          "V. Other current assets (150 = 151 + 152 + 153 + 154 + 155)"
+        ],
+        "report_code": "155"
+      },
+      {
+        "id": 409,
+        "name": "B - NON-CURRENT ASSETS (200 = 210 + 220 + 240 + 250 + 260)",
+        "code": "BS200",
+        "domain": false,
+        "formulas": "balance = BS210.balance + BS220.balance + BS240.balance + BS250.balance + BS260.balance",
+        "level": 1,
+        "sequence": 2,
+        "parent_id": [
+          379,
+          "TOTAL ASSETS (270 = 100 + 200)"
+        ],
+        "report_code": "200"
+      },
+      {
+        "id": 410,
+        "name": "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)",
+        "code": "BS210",
+        "domain": false,
+        "formulas": "balance = BS211.balance + BS212.balance + BS213.balance + BS214.balance + BS215.balance + BS216.balance + BS219.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          409,
+          "B - NON-CURRENT ASSETS (200 = 210 + 220 + 240 + 250 + 260)"
+        ],
+        "report_code": "210"
+      },
+      {
+        "id": 411,
+        "name": "1. Long-term trade receivables",
+        "code": "BS211",
+        "domain": "[('account_id.user_type_id.type', '=', 'receivable')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          410,
+          "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)"
+        ],
+        "report_code": "211"
+      },
+      {
+        "id": 412,
+        "name": "2. Long-term prepayments to suppliers",
+        "code": "BS212",
+        "domain": "[('account_id.code', '=like', '331%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          410,
+          "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)"
+        ],
+        "report_code": "212"
+      },
+      {
+        "id": 413,
+        "name": "3. Working capital provided to sub-units",
+        "code": "BS213",
+        "domain": "[('account_id.code', '=like', '1361%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          410,
+          "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)"
+        ],
+        "report_code": "213"
+      },
+      {
+        "id": 414,
+        "name": "4. Long-term intra-company receivables",
+        "code": "BS214",
+        "domain": "['|', '|', ('account_id.code', '=like', '1362%'), ('account_id.code', '=like', '1363%'), ('account_id.code', '=like', '1368%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          410,
+          "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)"
+        ],
+        "report_code": "214"
+      },
+      {
+        "id": 415,
+        "name": "5. Long-term loan receivables",
+        "code": "BS215",
+        "domain": "[('account_id.code', '=like', '1283%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          410,
+          "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)"
+        ],
+        "report_code": "215"
+      },
+      {
+        "id": 416,
+        "name": "6. Other long-term receivables",
+        "code": "BS216",
+        "domain": false,
+        "formulas": "balance = BS216A.balance + BS216B.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          410,
+          "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)"
+        ],
+        "report_code": "216"
+      },
+      {
+        "id": 417,
+        "name": "6a. Other long-term receivables (assets)",
+        "code": "BS216A",
+        "domain": "['|', '|', '|', ('account_id.code', '=like', '1385%'), ('account_id.code', '=like', '1388%'), ('account_id.code', '=like', '141%'), ('account_id.code', '=like', '244%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          416,
+          "6. Other long-term receivables"
+        ],
+        "report_code": ""
+      },
+      {
+        "id": 418,
+        "name": "6b. Other long-term receivables (equity)",
+        "code": "BS216B",
+        "domain": "['|', ('account_id.code', '=like', '334%'), ('account_id.code', '=like', '338%')]",
+        "formulas": "balance = sum_if_pos.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          416,
+          "6. Other long-term receivables"
+        ],
+        "report_code": ""
+      },
+      {
+        "id": 419,
+        "name": "7. Long-term allowances for doubtful debts",
+        "code": "BS219",
+        "domain": "[('account_id.code', '=like', '2293%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          410,
+          "I. Long-term receivables (210 = 211 + 212 + 213 + 214 + 215 + 216 + 219)"
+        ],
+        "report_code": "219"
+      },
+      {
+        "id": 420,
+        "name": "II. Fixed assets (220 = 221 + 224 + 227 + 230)",
+        "code": "BS220",
+        "domain": false,
+        "formulas": "balance = BS221.balance + BS224.balance + BS227.balance + BS230.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          409,
+          "B - NON-CURRENT ASSETS (200 = 210 + 220 + 240 + 250 + 260)"
+        ],
+        "report_code": "220"
+      },
+      {
+        "id": 421,
+        "name": "1. Tangible fixed assets (221 = 222 + 223)",
+        "code": "BS221",
+        "domain": false,
+        "formulas": "balance = BS222.balance + BS223.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          420,
+          "II. Fixed assets (220 = 221 + 224 + 227 + 230)"
+        ],
+        "report_code": "221"
+      },
+      {
+        "id": 422,
+        "name": "- Historical costs",
+        "code": "BS222",
+        "domain": "[('account_id.code', '=like', '211%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          421,
+          "1. Tangible fixed assets (221 = 222 + 223)"
+        ],
+        "report_code": "222"
+      },
+      {
+        "id": 423,
+        "name": "- Accumulated depreciation",
+        "code": "BS223",
+        "domain": "[('account_id.code', '=like', '2141%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          421,
+          "1. Tangible fixed assets (221 = 222 + 223)"
+        ],
+        "report_code": "223"
+      },
+      {
+        "id": 424,
+        "name": "2. Finance lease fixed assets (224 = 225 + 226)",
+        "code": "BS224",
+        "domain": false,
+        "formulas": "balance = BS225.balance + BS226.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          420,
+          "II. Fixed assets (220 = 221 + 224 + 227 + 230)"
+        ],
+        "report_code": "224"
+      },
+      {
+        "id": 425,
+        "name": "- Historical costs",
+        "code": "BS225",
+        "domain": "[('account_id.code', '=like', '212%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          424,
+          "2. Finance lease fixed assets (224 = 225 + 226)"
+        ],
+        "report_code": "225"
+      },
+      {
+        "id": 426,
+        "name": "- Accumulated depreciation",
+        "code": "BS226",
+        "domain": "[('account_id.code', '=like', '2142%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          424,
+          "2. Finance lease fixed assets (224 = 225 + 226)"
+        ],
+        "report_code": "226"
+      },
+      {
+        "id": 427,
+        "name": "3. Intangible fixed assets (227 = 228 + 229)",
+        "code": "BS227",
+        "domain": false,
+        "formulas": "balance = BS228.balance + BS229.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          420,
+          "II. Fixed assets (220 = 221 + 224 + 227 + 230)"
+        ],
+        "report_code": "227"
+      },
+      {
+        "id": 428,
+        "name": "- Historical costs",
+        "code": "BS228",
+        "domain": "[('account_id.code', '=like', '213%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          427,
+          "3. Intangible fixed assets (227 = 228 + 229)"
+        ],
+        "report_code": "228"
+      },
+      {
+        "id": 429,
+        "name": "- Accumulated depreciation",
+        "code": "BS229",
+        "domain": "[('account_id.code', '=like', '2143%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          427,
+          "3. Intangible fixed assets (227 = 228 + 229)"
+        ],
+        "report_code": "229"
+      },
+      {
+        "id": 430,
+        "name": "III. Investment properties (230 = 231 + 232)",
+        "code": "BS230",
+        "domain": false,
+        "formulas": "balance = BS231.balance + BS232.balance",
+        "level": 2,
+        "sequence": 3,
+        "parent_id": [
+          409,
+          "B - NON-CURRENT ASSETS (200 = 210 + 220 + 240 + 250 + 260)"
+        ],
+        "report_code": "230"
+      },
+      {
+        "id": 431,
+        "name": "- Historical costs",
+        "code": "BS231",
+        "domain": "[('account_id.code', '=like', '217%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          430,
+          "III. Investment properties (230 = 231 + 232)"
+        ],
+        "report_code": "231"
+      },
+      {
+        "id": 432,
+        "name": "- Accumulated depreciation",
+        "code": "BS232",
+        "domain": "[('account_id.code', '=like', '2147%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          430,
+          "III. Investment properties (230 = 231 + 232)"
+        ],
+        "report_code": "232"
+      },
+      {
+        "id": 433,
+        "name": "IV. Long-term assets in progress (240 = 241 + 242)",
+        "code": "BS240",
+        "domain": false,
+        "formulas": "balance = BS241.balance + BS242.balance",
+        "level": 2,
+        "sequence": 4,
+        "parent_id": [
+          409,
+          "B - NON-CURRENT ASSETS (200 = 210 + 220 + 240 + 250 + 260)"
+        ],
+        "report_code": "240"
+      },
+      {
+        "id": 434,
+        "name": "1. Long-term work in progress",
+        "code": "BS241",
+        "domain": "['|', ('account_id.code', '=like', '154%'), ('account_id.code', '=like', '2294%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          433,
+          "IV. Long-term assets in progress (240 = 241 + 242)"
+        ],
+        "report_code": "241"
+      },
+      {
+        "id": 435,
+        "name": "2. Construction in progress",
+        "code": "BS242",
+        "domain": "[('account_id.code', '=like', '241%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          433,
+          "IV. Long-term assets in progress (240 = 241 + 242)"
+        ],
+        "report_code": "242"
+      },
+      {
+        "id": 436,
+        "name": "V. Long-term investments (250 = 251 + 252 + 253 + 254 + 255)",
+        "code": "BS250",
+        "domain": false,
+        "formulas": "balance = BS251.balance + BS252.balance + BS253.balance + BS254.balance + BS255.balance",
+        "level": 2,
+        "sequence": 5,
+        "parent_id": [
+          409,
+          "B - NON-CURRENT ASSETS (200 = 210 + 220 + 240 + 250 + 260)"
+        ],
+        "report_code": "250"
+      },
+      {
+        "id": 437,
+        "name": "1. Investments in subsidiaries",
+        "code": "BS251",
+        "domain": "[('account_id.code', '=like', '221%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          436,
+          "V. Long-term investments (250 = 251 + 252 + 253 + 254 + 255)"
+        ],
+        "report_code": "251"
+      },
+      {
+        "id": 438,
+        "name": "2. Investments in joint ventures and associates",
+        "code": "BS252",
+        "domain": "[('account_id.code', '=like', '222%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          436,
+          "V. Long-term investments (250 = 251 + 252 + 253 + 254 + 255)"
+        ],
+        "report_code": "252"
+      },
+      {
+        "id": 439,
+        "name": "3. Investments in equity of other entities",
+        "code": "BS253",
+        "domain": "[('account_id.code', '=like', '2281%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          436,
+          "V. Long-term investments (250 = 251 + 252 + 253 + 254 + 255)"
+        ],
+        "report_code": "253"
+      },
+      {
+        "id": 440,
+        "name": "4. Allowances for long-term investments",
+        "code": "BS254",
+        "domain": "[('account_id.code', '=like', '2292%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          436,
+          "V. Long-term investments (250 = 251 + 252 + 253 + 254 + 255)"
+        ],
+        "report_code": "254"
+      },
+      {
+        "id": 441,
+        "name": "5. Held to maturity investments",
+        "code": "BS255",
+        "domain": "['|', '|', ('account_id.code', '=like', '1281%'), ('account_id.code', '=like', '1282%'), ('account_id.code', '=like', '1288%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          436,
+          "V. Long-term investments (250 = 251 + 252 + 253 + 254 + 255)"
+        ],
+        "report_code": "255"
+      },
+      {
+        "id": 442,
+        "name": "VI. Other long-term assets (260 = 261 + 262 + 263 + 268)",
+        "code": "BS260",
+        "domain": false,
+        "formulas": "balance = BS261.balance + BS262.balance + BS263.balance + BS268.balance",
+        "level": 2,
+        "sequence": 6,
+        "parent_id": [
+          409,
+          "B - NON-CURRENT ASSETS (200 = 210 + 220 + 240 + 250 + 260)"
+        ],
+        "report_code": "260"
+      },
+      {
+        "id": 443,
+        "name": "1. Long-term prepaid expenses",
+        "code": "BS261",
+        "domain": "[('account_id.code', '=like', '242%'), ('analytic_tag_ids', 'in', [3])]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          442,
+          "VI. Other long-term assets (260 = 261 + 262 + 263 + 268)"
+        ],
+        "report_code": "261"
+      },
+      {
+        "id": 444,
+        "name": "2. Deferred income tax assets",
+        "code": "BS262",
+        "domain": "[('account_id.code', '=like', '243%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          442,
+          "VI. Other long-term assets (260 = 261 + 262 + 263 + 268)"
+        ],
+        "report_code": "262"
+      },
+      {
+        "id": 445,
+        "name": "3. Long-term equipment and spare parts for replacement",
+        "code": "BS263",
+        "domain": "['|', ('account_id.code', '=like', '1534%'), ('account_id.code', '=like', '2294%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          442,
+          "VI. Other long-term assets (260 = 261 + 262 + 263 + 268)"
+        ],
+        "report_code": "263"
+      },
+      {
+        "id": 446,
+        "name": "4. Other long-term assets",
+        "code": "BS268",
+        "domain": "[('account_id.code', '=like', '2288%')]",
+        "formulas": "balance = sum.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          442,
+          "VI. Other long-term assets (260 = 261 + 262 + 263 + 268)"
+        ],
+        "report_code": "268"
+      },
+      {
+        "id": 447,
+        "name": "TOTAL EQUITY (440 = 300 + 400)",
+        "code": "BS440",
+        "domain": false,
+        "formulas": "balance = BS300.balance + BS400.balance",
+        "level": 0,
+        "sequence": 2,
+        "parent_id": false,
+        "report_code": "440"
+      },
+      {
+        "id": 448,
+        "name": "C - LIABILITIES (300 = 310 + 330)",
+        "code": "BS300",
+        "domain": false,
+        "formulas": "balance = BS310.balance + BS330.balance",
+        "level": 1,
+        "sequence": 3,
+        "parent_id": [
+          447,
+          "TOTAL EQUITY (440 = 300 + 400)"
+        ],
+        "report_code": "300"
+      },
+      {
+        "id": 449,
+        "name": "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)",
+        "code": "BS310",
+        "domain": false,
+        "formulas": "balance = BS311.balance + BS312.balance + BS313.balance + BS314.balance + BS315.balance + BS316.balance + BS317.balance + BS318.balance + BS319.balance + BS320.balance + BS321.balance + BS322.balance + BS323.balance + BS324.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          448,
+          "C - LIABILITIES (300 = 310 + 330)"
+        ],
+        "report_code": "310"
+      },
+      {
+        "id": 450,
+        "name": "1. Short-term trade payables",
+        "code": "BS311",
+        "domain": "[('account_id.code', '=like', '331%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "311"
+      },
+      {
+        "id": 451,
+        "name": "2. Short-term prepayments from customers",
+        "code": "BS312",
+        "domain": "[('account_id.user_type_id.type', '=', 'receivable')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "312"
+      },
+      {
+        "id": 452,
+        "name": "3. Taxes and other payables to government budget",
+        "code": "BS313",
+        "domain": "[('account_id.code', '=like', '333%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "313"
+      },
+      {
+        "id": 453,
+        "name": "4. Payables to employees",
+        "code": "BS314",
+        "domain": "[('account_id.code', '=like', '334%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "314"
+      },
+      {
+        "id": 454,
+        "name": "5. Short-term accrued expenses",
+        "code": "BS315",
+        "domain": "[('account_id.code', '=like', '335%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "315"
+      },
+      {
+        "id": 455,
+        "name": "6. Short-term intra-company payables",
+        "code": "BS316",
+        "domain": "['|', '|', ('account_id.code', '=like', '3362%'), ('account_id.code', '=like', '3363%'), ('account_id.code', '=like', '3368%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "316"
+      },
+      {
+        "id": 456,
+        "name": "7. Payables under schedule of construction contract",
+        "code": "BS317",
+        "domain": "[('account_id.code', '=like', '337%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "317"
+      },
+      {
+        "id": 457,
+        "name": "8. Short-term unearned revenues",
+        "code": "BS318",
+        "domain": "[('account_id.code', 'ilike', '3387%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "318"
+      },
+      {
+        "id": 461,
+        "name": "9. Other short-term payments",
+        "code": "BS319",
+        "domain": "[('account_id.code', 'not like', '3387%'), '|', '|', ('account_id.code', '=like', '138%'), ('account_id.code', '=like', '338%'), ('account_id.code', '=like', '344%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 9,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "319"
+      },
+      {
+        "id": 462,
+        "name": "10. Short-term borrowings and finance lease liabilities",
+        "code": "BS320",
+        "domain": "['|', ('account_id.code', '=like', '341%'), ('account_id.code', '=like', '34311%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 10,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "320"
+      },
+      {
+        "id": 463,
+        "name": "11. Short-term provisions",
+        "code": "BS321",
+        "domain": "[('account_id.code', '=like', '352%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 11,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "321"
+      },
+      {
+        "id": 464,
+        "name": "12. Bonus and welfare fund",
+        "code": "BS322",
+        "domain": "[('account_id.code', '=like', '353%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 12,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "322"
+      },
+      {
+        "id": 465,
+        "name": "13. Price stabilization fund",
+        "code": "BS323",
+        "domain": "[('account_id.code', '=like', '357%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 13,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "323"
+      },
+      {
+        "id": 466,
+        "name": "14. Government bonds purchased for resale",
+        "code": "BS324",
+        "domain": "[('account_id.code', '=like', '171%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 14,
+        "parent_id": [
+          449,
+          "I. Short-term liabilities (310 = 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322 + 323 + 324)"
+        ],
+        "report_code": "324"
+      },
+      {
+        "id": 467,
+        "name": "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)",
+        "code": "BS330",
+        "domain": false,
+        "formulas": "balance = BS331.balance + BS332.balance + BS333.balance + BS334.balance + BS335.balance + BS336.balance + BS337.balance + BS338.balance + BS339.balance + BS340.balance + BS341.balance + BS342.balance + BS343.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          448,
+          "C - LIABILITIES (300 = 310 + 330)"
+        ],
+        "report_code": "330"
+      },
+      {
+        "id": 468,
+        "name": "1. Long-term trade payables",
+        "code": "BS331",
+        "domain": "[('account_id.code', '=like', '331%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "331"
+      },
+      {
+        "id": 469,
+        "name": "2. Long-term prepayments from customers",
+        "code": "BS332",
+        "domain": "[('account_id.user_type_id.type', '=', 'receivable')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "332"
+      },
+      {
+        "id": 470,
+        "name": "3. Long-term accrued expenses",
+        "code": "BS333",
+        "domain": "[('account_id.code', '=like', '335%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "333"
+      },
+      {
+        "id": 471,
+        "name": "4. Intra-company payables for operating capital received",
+        "code": "BS334",
+        "domain": "[('account_id.code', '=like', '3361%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "334"
+      },
+      {
+        "id": 472,
+        "name": "5. Long-term intra-company payables",
+        "code": "BS335",
+        "domain": "['|', '|', ('account_id.code', '=like', '3362%'), ('account_id.code', '=like', '3363%'), ('account_id.code', '=like', '3368%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "335"
+      },
+      {
+        "id": 473,
+        "name": "6. Long-term unearned revenues",
+        "code": "BS336",
+        "domain": "[('account_id.code', 'ilike', '3387%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "336"
+      },
+      {
+        "id": 477,
+        "name": "7. Other long-term payables",
+        "code": "BS337",
+        "domain": "[('account_id.code', 'not ilike', '3387%'), '|', ('account_id.code', '=like', '338%'), ('account_id.code', '=like', '344%')]",
+        "formulas": "balance = -sum_if_neg.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "337"
+      },
+      {
+        "id": 478,
+        "name": "8. Long-term borrowings and finance lease liabilities",
+        "code": "BS338",
+        "domain": "['|', '|', '|', ('account_id.code', '=like', '341%'), ('account_id.code', '=like', '34311%'), ('account_id.code', '=like', '34312%'), ('account_id.code', '=like', '34313%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "338"
+      },
+      {
+        "id": 479,
+        "name": "9. Convertible bonds",
+        "code": "BS339",
+        "domain": "[('account_id.code', '=like', '3432%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 9,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "339"
+      },
+      {
+        "id": 480,
+        "name": "10. Preference shares",
+        "code": "BS340",
+        "domain": "[('account_id.code', '=like', '41112%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 10,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "340"
+      },
+      {
+        "id": 481,
+        "name": "11. Deferred income tax payables",
+        "code": "BS341",
+        "domain": "[('account_id.code', '=like', '347%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 11,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "341"
+      },
+      {
+        "id": 482,
+        "name": "12. Long-term provisions",
+        "code": "BS342",
+        "domain": "[('account_id.code', '=like', '352%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 12,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "342"
+      },
+      {
+        "id": 483,
+        "name": "13. Science and technology development fund",
+        "code": "BS343",
+        "domain": "[('account_id.code', '=like', '356%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 13,
+        "parent_id": [
+          467,
+          "II. Long-term liabilities (330 = 331 + 332 + 333 + 334 + 335 + 336 + 337 + 338 + 339 + 340 + 341 + 342 + 343)"
+        ],
+        "report_code": "343"
+      },
+      {
+        "id": 484,
+        "name": "D - OWNER’S EQUITY (400 = 410 + 430)",
+        "code": "BS400",
+        "domain": false,
+        "formulas": "balance = BS410.balance + BS430.balance",
+        "level": 1,
+        "sequence": 4,
+        "parent_id": [
+          447,
+          "TOTAL EQUITY (440 = 300 + 400)"
+        ],
+        "report_code": "400"
+      },
+      {
+        "id": 485,
+        "name": "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)",
+        "code": "BS410",
+        "domain": false,
+        "formulas": "balance = BS411.balance + BS412.balance + BS413.balance + BS414.balance + BS415.balance + BS416.balance + BS417.balance + BS418.balance + BS419.balance + BS420.balance + BS421.balance + BS422.balance",
+        "level": 2,
+        "sequence": 1,
+        "parent_id": [
+          484,
+          "D - OWNER’S EQUITY (400 = 410 + 430)"
+        ],
+        "report_code": "410"
+      },
+      {
+        "id": 486,
+        "name": "1. Contributed capital",
+        "code": "BS411",
+        "domain": "[('account_id.code', '=like', '4111%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "411"
+      },
+      {
+        "id": 487,
+        "name": " - Ordinary shares with voting rights",
+        "code": "BS411a",
+        "domain": "[('account_id.code', '=like', '41111%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          486,
+          "1. Contributed capital"
+        ],
+        "report_code": "411a"
+      },
+      {
+        "id": 488,
+        "name": " - Preference shares",
+        "code": "BS411b",
+        "domain": "[('account_id.code', '=like', '41112%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          486,
+          "1. Contributed capital"
+        ],
+        "report_code": "411b"
+      },
+      {
+        "id": 489,
+        "name": "2. Capital surplus",
+        "code": "BS412",
+        "domain": "[('account_id.code', '=like', '4112%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "412"
+      },
+      {
+        "id": 490,
+        "name": "3. Conversion options on convertible bonds",
+        "code": "BS413",
+        "domain": "[('account_id.code', '=like', '4113%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 3,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "413"
+      },
+      {
+        "id": 491,
+        "name": "4. Other capital",
+        "code": "BS414",
+        "domain": "[('account_id.code', '=like', '4118%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 4,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "414"
+      },
+      {
+        "id": 492,
+        "name": "5. Treasury shares",
+        "code": "BS415",
+        "domain": "[('account_id.code', '=like', '419%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 5,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "415"
+      },
+      {
+        "id": 493,
+        "name": "6. Differences upon asset revaluation",
+        "code": "BS416",
+        "domain": "[('account_id.code', '=like', '412%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 6,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "416"
+      },
+      {
+        "id": 494,
+        "name": "7. Exchange rate differences",
+        "code": "BS417",
+        "domain": "[('account_id.code', '=like', '413%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 7,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "417"
+      },
+      {
+        "id": 495,
+        "name": "8. Development and investment funds",
+        "code": "BS418",
+        "domain": "[('account_id.code', '=like', '414%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 8,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "418"
+      },
+      {
+        "id": 496,
+        "name": "9. Enterprise reorganization assistance fund",
+        "code": "BS419",
+        "domain": "[('account_id.code', '=like', '417%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 9,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "419"
+      },
+      {
+        "id": 497,
+        "name": "10. Other equity funds",
+        "code": "BS420",
+        "domain": "[('account_id.code', '=like', '418%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 10,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "420"
+      },
+      {
+        "id": 498,
+        "name": "11. Undistributed profit after tax",
+        "code": "BS421",
+        "domain": "",
+        "formulas": "balance = BS421a.balance + BS421b.balance",
+        "level": 3,
+        "sequence": 11,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "421"
+      },
+      {
+        "id": 499,
+        "name": "- Undistributed profit after tax brought forward",
+        "code": "BS421a",
+        "domain": "[('account_id.code', '=like', '4211%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          498,
+          "11. Undistributed profit after tax"
+        ],
+        "report_code": "421a"
+      },
+      {
+        "id": 500,
+        "name": "- Undistributed profit after tax for the current year",
+        "code": "BS421b",
+        "domain": "[('account_id.code', '=like', '4212%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          498,
+          "11. Undistributed profit after tax"
+        ],
+        "report_code": "421b"
+      },
+      {
+        "id": 501,
+        "name": "12. Capital expenditure funds",
+        "code": "BS422",
+        "domain": "[('account_id.code', '=like', '441%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 12,
+        "parent_id": [
+          485,
+          "I. Owner’s equity (410 = 411 + 412 + 413 + 414 + 415 + 416 + 417 + 418 + 419 + 420 + 421 + 422)"
+        ],
+        "report_code": "422"
+      },
+      {
+        "id": 502,
+        "name": "II. Funding sources and other funds (430 = 431 + 432)",
+        "code": "BS430",
+        "domain": false,
+        "formulas": "balance = BS431.balance + BS432.balance",
+        "level": 2,
+        "sequence": 2,
+        "parent_id": [
+          484,
+          "D - OWNER’S EQUITY (400 = 410 + 430)"
+        ],
+        "report_code": "430"
+      },
+      {
+        "id": 503,
+        "name": "1. Funding sources",
+        "code": "BS431",
+        "domain": "['|', ('account_id.code', '=like', '161%'), ('account_id.code', '=like', '461%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 1,
+        "parent_id": [
+          502,
+          "II. Funding sources and other funds (430 = 431 + 432)"
+        ],
+        "report_code": "431"
+      },
+      {
+        "id": 504,
+        "name": "2. Funds used for fixed asset acquisition",
+        "code": "BS432",
+        "domain": "[('account_id.code', '=like', '466%')]",
+        "formulas": "balance = -sum.balance",
+        "level": 3,
+        "sequence": 2,
+        "parent_id": [
+          502,
+          "II. Funding sources and other funds (430 = 431 + 432)"
+        ],
+        "report_code": "432"
+      },
+      {
+        "id": 505,
+        "name": "6.a. Total Cash Received",
+        "code": "CFS06a",
+        "domain": "[('debit', '>', 0), '|', ('account_id.user_type_id', '=', 3), ('account_id.code', '=like', '113%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          346,
+          "6. Other proceeds from operating activities"
+        ],
+        "report_code": "06a"
+      },
+      {
+        "id": 506,
+        "name": "6.b. Total Cash Received from cateogorized activities",
+        "code": "CFS06b",
+        "domain": "",
+        "formulas": "balance = CFS01.balance + CFS22.balance + CFS24.balance + CFS26.balance + CFS27.balance + CFS31.balance + CFS33.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          346,
+          "6. Other proceeds from operating activities"
+        ],
+        "report_code": "06b"
+      },
+      {
+        "id": 507,
+        "name": "7.a. Total Cash Out",
+        "code": "CFS07a",
+        "domain": "[('credit', '>', 0), '|', ('account_id.user_type_id', '=', 3), ('account_id.code', '=like', '113%')]",
+        "formulas": "balance = sum.balance",
+        "level": 4,
+        "sequence": 1,
+        "parent_id": [
+          347,
+          "7. Other expenditures on operating activities"
+        ],
+        "report_code": "07a"
+      },
+      {
+        "id": 508,
+        "name": "7.b. Total Cash Out from categorized activities",
+        "code": "CFS07b",
+        "domain": "",
+        "formulas": "balance = CFS02.balance + CFS03.balance + CFS04.balance + CFS05.balance + CFS21.balance + CFS23.balance + CFS25.balance + CFS32.balance + CFS34.balance + CFS35.balance + CFS36.balance",
+        "level": 4,
+        "sequence": 2,
+        "parent_id": [
+          347,
+          "7. Other expenditures on operating activities"
+        ],
+        "report_code": "07b"
+      }
+    ]
+  }
+}

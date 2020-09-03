@@ -1,0 +1,41 @@
+{
+    "jsonrpc": "2.0",
+    "id": 6750,
+    "result": {
+        "length": 8,
+        "records": [
+            {
+                "id": 8,
+                "name": "Cash Flow Statement (B03-DN)"
+            },
+            {
+                "id": 5,
+                "name": "VAT Declaration"
+            },
+            {
+                "id": 6,
+                "name": "Profit and Loss (B02-DN)"
+            },
+            {
+                "id": 7,
+                "name": "Balance Sheet (B01-DN)"
+            },
+            {
+                "id": 1,
+                "name": "Profit and Loss"
+            },
+            {
+                "id": 2,
+                "name": "Balance Sheet"
+            },
+            {
+                "id": 3,
+                "name": "Cash Flow Statement"
+            },
+            {
+                "id": 4,
+                "name": "Executive Summary"
+            }
+        ]
+    }
+}

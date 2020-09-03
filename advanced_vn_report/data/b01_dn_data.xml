@@ -1,0 +1,1588 @@
+<odoo>
+    <data>
+        <!--        main report-->
+        <record id="account_financial_report_b01" model="account.financial.html.report">
+            <field name="name">### Cân đối kế toán (B01-DN)</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="False"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="False"/>
+            <field name="date_range" eval="True"/>
+            <field name="comparison" eval="True"/>
+            <field name='parent_id' ref='account.account_reports_legal_statements_menu'/>
+        </record>
+        <!--        report content-->
+        <record id="account_financial_report_b01_100" model="account.financial.html.report.line">
+            <field name="name">A. TÀI SẢN NGẮN HẠN (100)</field>
+            <field name="code">b01_100</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_110.balance + b01_120.balance + b01_130.balance + b01_140.balance + b01_150.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="1"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_110" model="account.financial.html.report.line">
+            <field name="name">I. Tiền và các khoản tương đương tiền (110)</field>
+            <field name="code">b01_110</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_111.balance + b01_112.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="2"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_111" model="account.financial.html.report.line">
+            <field name="name">1. Tiền (111)</field>
+            <field name="code">b01_111</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="3"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 111)]"/>
+        </record>
+        <record id="account_financial_report_b01_112" model="account.financial.html.report.line">
+            <field name="name">2. Các khoản tương đương tiền (112)</field>
+            <field name="code">b01_112</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="4"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_3_short', '=', True),('b01_dn', '=', 112)]"/>
+        </record>
+        <record id="account_financial_report_b01_120" model="account.financial.html.report.line">
+            <field name="name">II. Các khoản đầu tư tài chính ngắn hạn (120)</field>
+            <field name="code">b01_120</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_121.balance + b01_122.balance + b01_123.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="5"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_121" model="account.financial.html.report.line">
+            <field name="name">1. Chứng khoán kinh doanh(121)</field>
+            <field name="code">b01_121</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="6"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 121)]"/>
+        </record>
+        <record id="account_financial_report_b01_122" model="account.financial.html.report.line">
+            <field name="name">2. Dự phòng giảm giá chứng khoán kinh doanh(122)</field>
+            <field name="code">b01_122</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="7"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 122)]"/>
+        </record>
+        <record id="account_financial_report_b01_123" model="account.financial.html.report.line">
+            <field name="name">3. Đầu tư nắm giữ đến ngày đáo hạn (123)</field>
+            <field name="code">b01_123</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="8"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_3_short', '=', True),('b01_dn_123', '=', 123)]"/>
+        </record>
+        <record id="account_financial_report_b01_130" model="account.financial.html.report.line">
+            <field name="name">III. Các khoản phải thu ngắn hạn (130)</field>
+            <field name="code">b01_130</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_131.balance + b01_132.balance + b01_133.balance + b01_134.balance + b01_135.balance + b01_136.balance + b01_137.balance + b01_139.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="9"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="need_recompute">True</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_131" model="account.financial.html.report.line">
+            <field name="name">1. Phải thu ngắn hạn của khách hàng (131)</field>
+            <field name="code">b01_131</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="10"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 131),'&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),'|',('non_partner_id_balance_b01_131_short_positive', '=', True),('partner_id_balance_b01_131_short_positive', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_132" model="account.financial.html.report.line">
+            <field name="name">2. Trả trước cho người bán ngắn hạn (132)</field>
+            <field name="code">b01_132</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="11"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 132),'&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),'|',('non_partner_id_balance_b01_311_short_positive', '=', True),('partner_id_balance_b01_311_short_positive', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_133" model="account.financial.html.report.line">
+            <field name="name">3. Phải thu nội bộ ngắn hạn (133)</field>
+            <field name="code">b01_133</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="12"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 133)]"/>
+        </record>
+        <record id="account_financial_report_b01_134" model="account.financial.html.report.line">
+            <field name="name">4. Phải thu theo tiến độ hợp đồng xây dựng (134)</field>
+            <field name="code">b01_134</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="13"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 134)]"/>
+        </record>
+        <record id="account_financial_report_b01_135" model="account.financial.html.report.line">
+            <field name="name">5. Phải thu về cho vay ngắn hạn (135)</field>
+            <field name="code">b01_135</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="14"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 135)]"/>
+        </record>
+        <record id="account_financial_report_b01_136" model="account.financial.html.report.line">
+            <field name="name">6. Các khoản phải thu ngắn hạn khác (136)</field>
+            <field name="code">b01_136</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="15"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="need_recompute">True</field>
+            <field name="domain" eval="['&amp;',('account_id_dn_01_balance_positive', '=', True),'&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),'&amp;',('b01_dn_136', '=', 136),'|',('partner_id','=',False),('partner_id_balance_b01_136_positive','=',True)]"/>
+        </record>
+        <record id="account_financial_report_b01_137" model="account.financial.html.report.line">
+            <field name="name">7. Dự phòng phải thu ngắn hạn khó đòi (137)</field>
+            <field name="code">b01_137</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="16"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 137)]"/>
+        </record>
+        <record id="account_financial_report_b01_138" model="account.financial.html.report.line">
+            <field name="name">8. Tài sản thiếu chờ xử lý (139)</field>
+            <field name="code">b01_139</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="17"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),'&amp;',('b01_dn', '=', 139),'|',('partner_id','=',False),('partner_id_balance_b01_139_positive','=',True)]"/>
+        </record>
+        <record id="account_financial_report_b01_140" model="account.financial.html.report.line">
+            <field name="name">IV. Hàng tồn kho (140)</field>
+            <field name="code">b01_140</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_141.balance + b01_149.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="18"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_141" model="account.financial.html.report.line">
+            <field name="name">1. Hàng tồn kho (141)</field>
+            <field name="code">b01_141</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="19"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn_141', '=', 141)]"/>
+        </record>
+        <record id="account_financial_report_b01_149" model="account.financial.html.report.line">
+            <field name="name">2. Dự phòng giảm giá hàng tồn kho (149)</field>
+            <field name="code">b01_149</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="20"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 149)]"/>
+        </record>
+        <record id="account_financial_report_b01_150" model="account.financial.html.report.line">
+            <field name="name">V. Tài sản ngắn hạn khác (150)</field>
+            <field name="code">b01_150</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_151.balance + b01_152.balance + b01_154.balance + b01_155.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="21"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_151" model="account.financial.html.report.line">
+            <field name="name">1. Chi phí trả trước ngắn hạn (151)</field>
+            <field name="code">b01_151</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="22"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 151)]"/>
+        </record>
+        <record id="account_financial_report_b01_152" model="account.financial.html.report.line">
+            <field name="name">2. Thuế giá trị gia tăng được khấu trừ (152)</field>
+            <field name="code">b01_152</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="23"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 152)]"/>
+        </record>
+        <record id="account_financial_report_b01_153" model="account.financial.html.report.line">
+            <field name="name">3. Thuế và các khoản phải thu Nhà nước (153)</field>
+            <field name="code">b01_153</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="24"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">never</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="hide_if_negative">True</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 153)]"/>
+        </record>
+        <record id="account_financial_report_b01_154" model="account.financial.html.report.line">
+            <field name="name">4. Giao dịch mua bán lại trái phiếu chính phủ (154)</field>
+            <field name="code">b01_154</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="25"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 154)]"/>
+        </record>
+        <record id="account_financial_report_b01_155" model="account.financial.html.report.line">
+            <field name="name">5. Tài sản ngắn hạn khác (155)</field>
+            <field name="code">b01_155</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="26"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 155)]"/>
+        </record>
+        <record id="account_financial_report_b01_200" model="account.financial.html.report.line">
+            <field name="name">B. TÀI SẢN DÀI HẠN (200)</field>
+            <field name="code">b01_200</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_210.balance + b01_220.balance + b01_240.balance + b01_250.balance + b01_260.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="27"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_210" model="account.financial.html.report.line">
+            <field name="name">I. Các khoản phải thu dài hạn (210)</field>
+            <field name="code">b01_210</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_211.balance + b01_212.balance + b01_213.balance + b01_214.balance + b01_215.balance + b01_216.balance + b01_219.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="28"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="need_recompute">True</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_211" model="account.financial.html.report.line">
+            <field name="name">1. Phải thu dài hạn của khách hàng (211)</field>
+            <field name="code">b01_211</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="29"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 131),'&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'|',('non_partner_id_balance_b01_211_long_positive', '=', True),('partner_id_balance_b01_211_long_positive', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_212" model="account.financial.html.report.line">
+            <field name="name">2. Trả trước cho người bán dài hạn (212)</field>
+            <field name="code">b01_212</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="30"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 132),'&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'|',('non_partner_id_balance_b01_331_long_positive', '=', True),('partner_id_balance_b01_331_long_positive', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_213" model="account.financial.html.report.line">
+            <field name="name">3. Vốn kinh doanh ở đơn vị trực thuộc (213)</field>
+            <field name="code">b01_213</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="31"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 213)]"/>
+        </record>
+        <record id="account_financial_report_b01_214" model="account.financial.html.report.line">
+            <field name="name">4. Phải thu nội bộ dài hạn (214)</field>
+            <field name="code">b01_214</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="32"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 214),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_215" model="account.financial.html.report.line">
+            <field name="name">5. Phải thu về cho vay dài hạn (215)</field>
+            <field name="code">b01_215</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="33"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'&amp;',('b01_dn_215', '=', 215),'|',('partner_id','=',False),('partner_id_balance_b01_215_positive','=',True)]"/>
+        </record>
+        <record id="account_financial_report_b01_216" model="account.financial.html.report.line">
+            <field name="name">6. Phải thu dài hạn khác (216)</field>
+            <field name="code">b01_216</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="34"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="need_recompute">True</field>
+            <field name="domain" eval="['&amp;',('b01_dn_216', '=', 216),'&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'|',('partner_id','=',False),('partner_id_balance_b01_216_positive','=',True)]"/>
+        </record>
+        <record id="account_financial_report_b01_219" model="account.financial.html.report.line">
+            <field name="name">7. Dự phòng phải thu dài hạn khó đòi (219)</field>
+            <field name="code">b01_219</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="35"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 219),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_220" model="account.financial.html.report.line">
+            <field name="name">II. Tài sản cố định (220)</field>
+            <field name="code">b01_220</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_221.balance + b01_224.balance + b01_227.balance + b01_230.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="36"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_221" model="account.financial.html.report.line">
+            <field name="name">1. Tài sản cố định hữu hình (221)</field>
+            <field name="code">b01_221</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_222.balance + b01_223.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="37"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_222" model="account.financial.html.report.line">
+            <field name="name"> - Nguyên giá (222)</field>
+            <field name="code">b01_222</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="38"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 222)]"/>
+        </record>
+        <record id="account_financial_report_b01_223" model="account.financial.html.report.line">
+            <field name="name"> - Giá trị hao mòn lũy kế (223)</field>
+            <field name="code">b01_223</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="39"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 223)]"/>
+        </record>
+        <record id="account_financial_report_b01_224" model="account.financial.html.report.line">
+            <field name="name">2. Tài sản cố định thuê tài chính (224)</field>
+            <field name="code">b01_224</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_225.balance + b01_226.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="40"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_225" model="account.financial.html.report.line">
+            <field name="name"> - Nguyên giá (225)</field>
+            <field name="code">b01_225</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="41"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 225)]"/>
+        </record>
+        <record id="account_financial_report_b01_226" model="account.financial.html.report.line">
+            <field name="name"> - Giá trị hao mòn lũy kế (226)</field>
+            <field name="code">b01_226</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="42"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 226)]"/>
+        </record>
+        <record id="account_financial_report_b01_227" model="account.financial.html.report.line">
+            <field name="name">3. Tài sản cố định vô hình (227)</field>
+            <field name="code">b01_227</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_228.balance + b01_229.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="43"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_228" model="account.financial.html.report.line">
+            <field name="name"> - Nguyên giá (228)</field>
+            <field name="code">b01_228</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="44"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 228)]"/>
+        </record>
+        <record id="account_financial_report_b01_229" model="account.financial.html.report.line">
+            <field name="name"> - Giá trị hao mòn lũy kế (229)</field>
+            <field name="code">b01_229</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="45"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 229)]"/>
+        </record>
+        <record id="account_financial_report_b01_230" model="account.financial.html.report.line">
+            <field name="name">III. Bất động sản đầu tư (230)</field>
+            <field name="code">b01_230</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_231.balance + b01_232.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="46"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_231" model="account.financial.html.report.line">
+            <field name="name">1. Nguyên giá (231)</field>
+            <field name="code">b01_231</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="47"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 231)]"/>
+        </record>
+        <record id="account_financial_report_b01_232" model="account.financial.html.report.line">
+            <field name="name">2. Giá trị hao mòn lũy kế (232)</field>
+            <field name="code">b01_232</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="49"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 232)]"/>
+        </record>
+        <record id="account_financial_report_b01_240" model="account.financial.html.report.line">
+            <field name="name">IV. Tài sản dở dang dài hạn (240)</field>
+            <field name="code">b01_240</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_241.balance + b01_242.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="50"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_241" model="account.financial.html.report.line">
+            <field name="name">1. Chi phi sản xuất kinh doanh dở dang dài hạn (241)</field>
+            <field name="code">b01_241</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="51"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn_241', '=', 241),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_242" model="account.financial.html.report.line">
+            <field name="name">2. Chi phí xây dựng cơ bản dở dang (242)</field>
+            <field name="code">b01_242</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="52"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 242)]"/>
+        </record>
+        <record id="account_financial_report_b01_250" model="account.financial.html.report.line">
+            <field name="name">V. Đầu tư tài chính dài hạn (250)</field>
+            <field name="code">b01_250</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_251.balance + b01_252.balance + b01_253.balance + b01_254.balance + b01_255.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="53"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_251" model="account.financial.html.report.line">
+            <field name="name">1. Đầu tư vào công ty con (251)</field>
+            <field name="code">b01_251</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="54"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 251)]"/>
+        </record>
+        <record id="account_financial_report_b01_252" model="account.financial.html.report.line">
+            <field name="name">2. Đầu tư vào công ty liên doanh liên kết (252)</field>
+            <field name="code">b01_252</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="55"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 252)]"/>
+        </record>
+        <record id="account_financial_report_b01_253" model="account.financial.html.report.line">
+            <field name="name">3. Đầu tư góp vốn vào công ty khác (253)</field>
+            <field name="code">b01_253</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="56"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 253)]"/>
+        </record>
+        <record id="account_financial_report_b01_254" model="account.financial.html.report.line">
+            <field name="name">4. Dự phòng đầu tư tài chính dài hạn (254)</field>
+            <field name="code">b01_254</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="57"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 254),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_255" model="account.financial.html.report.line">
+            <field name="name">5. Đầu tư nắm giữ đến ngày đáo hạn (255)</field>
+            <field name="code">b01_255</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="58"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn_255', '=', 255)]"/>
+        </record>
+        <record id="account_financial_report_b01_260" model="account.financial.html.report.line">
+            <field name="name">VI. Tài sản dài hạn khác (260)</field>
+            <field name="code">b01_260</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_261.balance + b01_262.balance + b01_268.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="59"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_261" model="account.financial.html.report.line">
+            <field name="name">1. Chi phí trả trước dài hạn (261)</field>
+            <field name="code">b01_261</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="60"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 151),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_262" model="account.financial.html.report.line">
+            <field name="name">2. Tài sản thuế thu nhập hoãn lại (262)</field>
+            <field name="code">b01_262</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="61"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 262)]"/>
+        </record>
+        <record id="account_financial_report_b01_263" model="account.financial.html.report.line">
+            <field name="name">3. Thiết bị, vật tư, phụ tùng thay thế dài hạn (263)</field>
+            <field name="code">b01_263</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="62"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 263),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_268" model="account.financial.html.report.line">
+            <field name="name">4. Tài sản dài hạn khác (268)</field>
+            <field name="code">b01_268</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="63"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 155),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_270" model="account.financial.html.report.line">
+            <field name="name">TỔNG CỘNG TÀI SẢN (270)</field>
+            <field name="code">b01_270</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_100.balance + b01_200.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="64"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_nguon_von" model="account.financial.html.report.line">
+            <field name="name">NGUỒN VỐN</field>
+            <field name="code">b01_nv</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="65"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_300" model="account.financial.html.report.line">
+            <field name="name">C. NỢ PHẢI TRẢ (300)</field>
+            <field name="code">b01_300</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_310.balance + b01_330.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="66"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_310" model="account.financial.html.report.line">
+            <field name="name">I. Nợ ngắn hạn (310)</field>
+            <field name="code">b01_310</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_311.balance + b01_312.balance + b01_313.balance + b01_314.balance + b01_315.balance + b01_316.balance + b01_317.balance + b01_318.balance + b01_319.balance + b01_320.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="67"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_311" model="account.financial.html.report.line">
+            <field name="name">1. Phải trả người bán ngắn hạn (311)</field>
+            <field name="code">b01_311</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="68"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 132),'&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),'&amp;',('non_partner_id_balance_b01_311_short_positive', '=', False),('partner_id_balance_b01_311_short_positive', '=', False)]"/>
+        </record>
+        <record id="account_financial_report_b01_312" model="account.financial.html.report.line">
+            <field name="name">2. Người mua trả tiền trước ngắn hạn (312)</field>
+            <field name="code">b01_312</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="69"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 131),'&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),'&amp;',('non_partner_id_balance_b01_131_short_positive', '=', False),('partner_id_balance_b01_131_short_positive', '=', False)]"/>
+        </record>
+        <record id="account_financial_report_b01_313" model="account.financial.html.report.line">
+            <field name="name">3. Thuế và các khoản phải nộp Nhà nước (313)</field>
+            <field name="code">b01_313</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="70"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="hide_if_positive">False</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('b01_dn_313', '=', 313),'|',('partner_id','=',False),('partner_id_balance_b01_313_positive','=',False)]"/>
+        </record>
+        <record id="account_financial_report_b01_314" model="account.financial.html.report.line">
+            <field name="name">4. Phải trả người lao động (314)</field>
+            <field name="code">b01_314</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="71"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('b01_dn_314', '=', 314),'|',('partner_id','=',False),('partner_id_balance_b01_314_positive','=',False)]"/>
+        </record>
+        <record id="account_financial_report_b01_315" model="account.financial.html.report.line">
+            <field name="name">5. Chi phí phải trả ngắn hạn (315)</field>
+            <field name="code">b01_315</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="72"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 315)]"/>
+        </record>
+        <record id="account_financial_report_b01_316" model="account.financial.html.report.line">
+            <field name="name">6. Phải trả nội bộ ngắn hạn (316)</field>
+            <field name="code">b01_316</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="73"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 316)]"/>
+        </record>
+        <record id="account_financial_report_b01_317" model="account.financial.html.report.line">
+            <field name="name">7. Phải trả theo tiến độ hợp đồng xây dựng (317)</field>
+            <field name="code">b01_317</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="74"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 317)]"/>
+        </record>
+        <record id="account_financial_report_b01_318" model="account.financial.html.report.line">
+            <field name="name">8. Doanh thu chưa thực hiện ngắn hạn (318)</field>
+            <field name="code">b01_318</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="75"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('b01_dn_318', '=', 318),'|',('partner_id','=',False),('partner_id_balance_b01_318_positive','=',False)]"/>
+        </record>
+        <record id="account_financial_report_b01_319" model="account.financial.html.report.line">
+            <field name="name">9. Phải trả ngắn hạn khác (319)</field>
+            <field name="code">b01_319</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="76"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="need_recompute">True</field>
+            <field name="domain" eval="['&amp;',('account_id_dn_01_balance_positive', '=', False),'&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),'&amp;',('b01_dn_319', '=', 319),'|',('partner_id','=',False),('partner_id_balance_b01_319_positive','=',False)]"/>
+        </record>
+        <record id="account_financial_report_b01_320" model="account.financial.html.report.line">
+            <field name="name">10. Vay và nợ thuê tài chính ngắn hạn (320)</field>
+            <field name="code">b01_320</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="77"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 320)]"/>
+        </record>
+        <record id="account_financial_report_b01_321" model="account.financial.html.report.line">
+            <field name="name">11. Dự phòng phải trả ngắn hạn (321)</field>
+            <field name="code">b01_321</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="78"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),'&amp;',('is_long_payment', '=', False),('b01_dn', '=', 321)]"/>
+        </record>
+        <record id="account_financial_report_b01_322" model="account.financial.html.report.line">
+            <field name="name">12. Quỹ khen thưởng phúc lợi (322)</field>
+            <field name="code">b01_322</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="79"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 322)]"/>
+        </record>
+        <record id="account_financial_report_b01_323" model="account.financial.html.report.line">
+            <field name="name">13. Quỹ bình ổn giá (323)</field>
+            <field name="code">b01_323</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="80"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn', '=', 323)]"/>
+        </record>
+        <record id="account_financial_report_b01_324" model="account.financial.html.report.line">
+            <field name="name">14. Giao dịch mua bán lại trái phiếu chính phủ (324)</field>
+            <field name="code">b01_324</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="81"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', True),('b01_dn_324', '=', 324)]"/>
+        </record>
+        <record id="account_financial_report_b01_330" model="account.financial.html.report.line">
+            <field name="name">II. Nợ dài hạn (330)</field>
+            <field name="code">b01_330</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_331.balance + b01_332.balance + b01_333.balance + b01_334.balance + b01_335.balance + b01_336.balance + b01_337.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="82"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_331" model="account.financial.html.report.line">
+            <field name="name">1. Phải trả người bán dài hạn (331)</field>
+            <field name="code">b01_331</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="83"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 132),'&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'&amp;',('non_partner_id_balance_b01_331_long_positive', '=', False),('partner_id_balance_b01_331_long_positive', '=', False)]"/>
+        </record>
+        <record id="account_financial_report_b01_332" model="account.financial.html.report.line">
+            <field name="name">2. Người mua trả tiền trước dài hạn (332)</field>
+            <field name="code">b01_332</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="84"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 131),'&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'&amp;',('non_partner_id_balance_b01_211_long_positive', '=', False),('partner_id_balance_b01_211_long_positive', '=', False)]"/>
+        </record>
+        <record id="account_financial_report_b01_333" model="account.financial.html.report.line">
+            <field name="name">3. Chi phí phải trả dài hạn (333)</field>
+            <field name="code">b01_333</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="85"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 315),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_334" model="account.financial.html.report.line">
+            <field name="name">4. Phải trả nội bộ về vốn kinh doanh (334)</field>
+            <field name="code">b01_334</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="86"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 334)]"/>
+        </record>
+        <record id="account_financial_report_b01_335" model="account.financial.html.report.line">
+            <field name="name">5. Phải trả nội bộ dài hạn (335)</field>
+            <field name="code">b01_335</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="87"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn_335', '=', 335),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_336" model="account.financial.html.report.line">
+            <field name="name">6. Doanh thu chưa thực hiện dài hạn (336)</field>
+            <field name="code">b01_336</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="88"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),'&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'&amp;',('b01_dn', '=', 336),'|',('partner_id','=',False),('partner_id_balance_b01_336_positive','=',False)]"/>
+        </record>
+        <record id="account_financial_report_b01_337" model="account.financial.html.report.line">
+            <field name="name">7. Phải trả dài hạn khác (337)</field>
+            <field name="code">b01_337</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="89"/>
+            <field name="groupby">partner_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;','|',('date_maturity_short', '=', False),('is_long_payment', '=', True),'&amp;',('b01_dn_337', '=', 337),'|',('partner_id','=',False),('partner_id_balance_b01_337_positive','=',False)]"/>
+        </record>
+        <record id="account_financial_report_b01_338" model="account.financial.html.report.line">
+            <field name="name">8. Vay và nợ thuê tài chính dài hạn (338)</field>
+            <field name="code">b01_338</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_3381.balance + b01_3382.balance - b01_3383.balance + b01_3384.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="90"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_338a" model="account.financial.html.report.line">
+            <field name="name">- Nợ thuê tài chính và các khoản đi vay (338a)</field>
+            <field name="code">b01_3381</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="91"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn_3381', '=', 3381)]"/>
+        </record>
+        <record id="account_financial_report_b01_338b" model="account.financial.html.report.line">
+            <field name="name">- Mệnh giá trái phiếu (338b)</field>
+            <field name="code">b01_3382</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="92"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 3382)]"/>
+        </record>
+        <record id="account_financial_report_b01_338c" model="account.financial.html.report.line">
+            <field name="name">- Chiết khấu trái phiếu (338c)</field>
+            <field name="code">b01_3383</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="93"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 3383)]"/>
+        </record>
+        <record id="account_financial_report_b01_338d" model="account.financial.html.report.line">
+            <field name="name">- Phụ trội trái phiếu (338d)</field>
+            <field name="code">b01_3384</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="94"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 3384)]"/>
+        </record>
+        <record id="account_financial_report_b01_339" model="account.financial.html.report.line">
+            <field name="name">9. Trái phiếu chuyển đổi (339)</field>
+            <field name="code">b01_339</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="95"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 339)]"/>
+        </record>
+        <record id="account_financial_report_b01_340" model="account.financial.html.report.line">
+            <field name="name">10. Cổ phiếu ưu đãi (340)</field>
+            <field name="code">b01_340</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="96"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 340)]"/>
+        </record>
+        <record id="account_financial_report_b01_341" model="account.financial.html.report.line">
+            <field name="name">11. Thuế thu nhập hoàn lại phải trả (341)</field>
+            <field name="code">b01_341</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="97"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 341)]"/>
+        </record>
+        <record id="account_financial_report_b01_342" model="account.financial.html.report.line">
+            <field name="name">12. Dự phòng phải trả dài hạn (342)</field>
+            <field name="code">b01_342</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="98"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('b01_dn', '=', 342),'|',('date_maturity_short', '=', False),('is_long_payment', '=', True)]"/>
+        </record>
+        <record id="account_financial_report_b01_343" model="account.financial.html.report.line">
+            <field name="name">13. Quỹ phát triển khoa học và công nghệ (343)</field>
+            <field name="code">b01_343</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="99"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="['&amp;',('date_maturity_short', '=', False),('b01_dn', '=', 343)]"/>
+        </record>
+        <record id="account_financial_report_b01_400" model="account.financial.html.report.line">
+            <field name="name">D. VỐN CHỦ SỞ HỮU (400)</field>
+            <field name="code">b01_400</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_410.balance + b01_430.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="100"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_410" model="account.financial.html.report.line">
+            <field name="name">I. Nợ ngắn hạn (410)</field>
+            <field name="code">b01_410</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_411.balance + b01_412.balance + b01_413.balance + b01_414.balance + b01_415.balance + b01_416.balance + b01_417.balance + b01_418.balance + b01_419.balance + b01_420.balance + b01_421.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="101"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_411" model="account.financial.html.report.line">
+            <field name="name">1. Vốn góp của chủ sở hữu (411)</field>
+            <field name="code">b01_411</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="102"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn_411', '=', 411)]"/>
+        </record>
+        <record id="account_financial_report_b01_411a" model="account.financial.html.report.line">
+            <field name="name">- Cổ phiếu phổ thông có quyền biểu quyết (411a)</field>
+            <field name="code">b01_4111</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="103"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 4111)]"/>
+        </record>
+        <record id="account_financial_report_b01_411b" model="account.financial.html.report.line">
+            <field name="name">- Cổ phiếu ưu đãi (411b)</field>
+            <field name="code">b01_4112</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="104"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 4112)]"/>
+        </record>
+        <record id="account_financial_report_b01_412" model="account.financial.html.report.line">
+            <field name="name">2. Thặng dư vốn cổ phần (412)</field>
+            <field name="code">b01_412</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="105"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 412)]"/>
+        </record>
+        <record id="account_financial_report_b01_413" model="account.financial.html.report.line">
+            <field name="name">3. Quyền chọn chuyển đổi trái phiếu (413)</field>
+            <field name="code">b01_413</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="106"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 413)]"/>
+        </record>
+        <record id="account_financial_report_b01_414" model="account.financial.html.report.line">
+            <field name="name">4. Vốn khác của chủ sở hữu (414)</field>
+            <field name="code">b01_414</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="107"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 414)]"/>
+        </record>
+        <record id="account_financial_report_b01_415" model="account.financial.html.report.line">
+            <field name="name">5. Cổ phiếu quỹ (415)</field>
+            <field name="code">b01_415</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="108"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 415)]"/>
+        </record>
+        <record id="account_financial_report_b01_416" model="account.financial.html.report.line">
+            <field name="name">6. Chênh lệch đánh giá lại tài sản (416)</field>
+            <field name="code">b01_416</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="109"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 416)]"/>
+        </record>
+        <record id="account_financial_report_b01_417" model="account.financial.html.report.line">
+            <field name="name">7. Chênh lệch tỉ giá hối đoái (417)</field>
+            <field name="code">b01_417</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="110"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 417)]"/>
+        </record>
+        <record id="account_financial_report_b01_418" model="account.financial.html.report.line">
+            <field name="name">8. Quỹ đầu tư phát triển (418)</field>
+            <field name="code">b01_418</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="111"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 418)]"/>
+        </record>
+        <record id="account_financial_report_b01_419" model="account.financial.html.report.line">
+            <field name="name">9. Quỹ hỗ trợ sắp xếp doanh nghiệp (419)</field>
+            <field name="code">b01_419</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="112"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 419)]"/>
+        </record>
+        <record id="account_financial_report_b01_420" model="account.financial.html.report.line">
+            <field name="name">10. Quỹ khác thuộc vốn chủ sở hữu (420)</field>
+            <field name="code">b01_420</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="113"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 420)]"/>
+        </record>
+        <record id="account_financial_report_b01_421" model="account.financial.html.report.line">
+            <field name="name">11. Lợi nhuận sau thế chưa phân phối (421)</field>
+            <field name="code">b01_421</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="114"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn_421', '=', 421)]"/>
+        </record>
+        <record id="account_financial_report_b01_421a" model="account.financial.html.report.line">
+            <field name="name">- LNST chưa phân phối lũy kế đến cuối kỳ trước (421a)</field>
+            <field name="code">b01_4211</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="115"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 4211)]"/>
+        </record>
+        <record id="account_financial_report_b01_421b" model="account.financial.html.report.line">
+            <field name="name">- LNST chưa phân phối kỳ này (421b)</field>
+            <field name="code">b01_4212</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="116"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 4212)]"/>
+        </record>
+        <record id="account_financial_report_b01_422" model="account.financial.html.report.line">
+            <field name="name">12. Nguồn vốn đầu tư XDCB (422)</field>
+            <field name="code">b01_422</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="117"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 422)]"/>
+        </record>
+        <record id="account_financial_report_b01_430" model="account.financial.html.report.line">
+            <field name="name">I. Nguồn kinh phí và quỹ khác (430)</field>
+            <field name="code">b01_430</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_431.balance + b01_432.balance</field>
+            <field name="level" eval="2"/>
+            <field name="sequence" eval="118"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+        <record id="account_financial_report_b01_431" model="account.financial.html.report.line">
+            <field name="name">1. Nguồn kinh phí (431)</field>
+            <field name="code">b01_431</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_4311.balance + b01_4312.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="119"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 431)]"/>
+        </record>
+        <record id="account_financial_report_b01_431a" model="account.financial.html.report.line">
+            <field name="name">- Nguồn kinh phí sự nghiệp (431a)</field>
+            <field name="code">b01_4311</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="120"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 4311)]"/>
+        </record>
+        <record id="account_financial_report_b01_431b" model="account.financial.html.report.line">
+            <field name="name">- Chi sự nghiệp (431b)</field>
+            <field name="code">b01_4312</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="level" eval="4"/>
+            <field name="sequence" eval="121"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 4312)]"/>
+        </record>
+        <record id="account_financial_report_b01_432" model="account.financial.html.report.line">
+            <field name="name">2. Nguồn kinh phí (432)</field>
+            <field name="code">b01_432</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="level" eval="3"/>
+            <field name="sequence" eval="122"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+            <field name="domain" eval="[('b01_dn', '=', 432)]"/>
+        </record>
+        <record id="account_financial_report_b01_440" model="account.financial.html.report.line">
+            <field name="name">TỔNG CỘNG NGUỒN VỐN (440)</field>
+            <field name="code">b01_440</field>
+            <field name="financial_report_id" ref="account_financial_report_b01"/>
+            <field name="formulas">balance = b01_300.balance + b01_400.balance</field>
+            <field name="level" eval="1"/>
+            <field name="sequence" eval="123"/>
+            <field name="groupby">account_id</field>
+            <field name="show_domain">foldable</field>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="green_on_positive" eval="True"/>
+        </record>
+
+        <!--        action to create menu-->
+        <record id="action_account_report_pnl_b01" model="ir.actions.client">
+            <field name="name">### Cân đối kế toán (B01-DN)</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.financial.html.report', 'id': ref('account_financial_report_b01')}"/>
+        </record>
+    </data>
+</odoo>

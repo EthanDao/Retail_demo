@@ -1,0 +1,657 @@
+<odoo>
+    <data>
+        <record id="view_account_financial_reports_note_form" model="ir.ui.view">
+            <field name="name">account.financial.html.note.report.form</field>
+            <field name="model">financial.note</field>
+            <field name="arch" type="xml">
+                <form string="Thuyet Minh Tai Chinh">
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="1.Thông tin chung">
+                            <div style=" ">
+                                <field name="financial_config_lines_general" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'general'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="parent_id"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="2.Thông tin bổ sung">
+                             <div style=" ">
+                                <field name="financial_config_lines_replenish" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'replenish'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="parent_id"/>
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="initial"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="3.Đầu tư tài chính">
+                             <div style=" ">
+                                <field name="financial_config_lines_invest" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'invest'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <!-- <field name="parent_id"/>-->
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="last_number"/>
+                                        <field name="last_preventive"/>
+                                        <field name="initial"/>
+                                        <field name="initial_number"/>
+                                        <field name="initial_preventive"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="4.Phải thu khác">
+                             <div style=" ">
+                                <field name="financial_config_lines_other" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'other'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="last_preventive"/>
+                                        <field name="initial"/>
+                                        <field name="initial_preventive"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="5.Nợ xấu">
+                             <div style=" ">
+                                <field name="financial_config_lines_bad_debit" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'bad_debit'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="last_number"/>
+                                        <field name="initial"/>
+                                        <field name="initial_number"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="6.Hàng tồn kho">
+                             <div style=" ">
+                                <field name="financial_config_lines_inventory" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'inventory'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="last_preventive"/>
+                                        <field name="initial"/>
+                                        <field name="initial_preventive"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="7.TS dở dang dài hạn">
+                             <div style=" ">
+                                <field name="financial_config_lines_long_asset" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'long_asset'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="last_number"/>
+                                        <field name="initial"/>
+                                        <field name="initial_number"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="8.TSCĐ hữu hình">
+                             <div style=" ">
+                                <field name="financial_config_lines_non_virtual_assets" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'non_virtual_assets'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="nc_vc_kt"/>
+                                        <field name="equipment"/>
+                                        <field name="pt_vt_td"/>
+                                        <field name="tb_cc_ql"/>
+                                        <field name="cc_sv"/>
+                                        <field name="kc_ht"/>
+                                        <field name="ts_khac"/>
+                                        <field name="total"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="9.TSCĐ vô hình">
+                             <div style="">
+                                <field name="financial_config_lines_virtual_assets" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'virtual_assets'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="q_s_d_d"/>
+                                        <field name="q_ph"/>
+                                        <field name="copy_right"/>
+                                        <field name="nh_hh"/>
+                                        <field name="sort_ware"/>
+                                        <field name="license"/>
+                                        <field name="ts_vh"/>
+                                        <field name="total"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="10.TSCĐ thuê tài chính">
+                             <div style=" ">
+                                <field name="financial_config_lines_asset_rest" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'asset_rest'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="nc_vc_kt"/>
+                                        <field name="equipment"/>
+                                        <field name="pt_vt_td"/>
+                                        <field name="tb_cc_ql"/>
+                                        <field name="ts_khac"/>
+                                        <field name="ts_vh"/>
+                                        <field name="total"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="11.Tăng giảm BĐS đầu tư">
+                             <div style=" ">
+                                <field name="financial_config_lines_bds_invest" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'bds_invest'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="initial_number"/>
+                                        <field name="down_in_year"/>
+                                        <field name="up_in_year"/>
+                                        <field name="last_number"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="12.Các khoản vay">
+                             <div style=" ">
+                                <field name="financial_config_lines_borrow" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'borrow'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last_number"/>
+                                        <field name="lose_payment_last"/>
+                                        <field name="up_in_year"/>
+                                        <field name="down_in_year"/>
+                                        <field name="last_year_interest"/>
+                                        <field name="initial_number"/>
+                                        <field name="lose_payment_init"/>
+                                        <field name="init_year_interest"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="13.Nợ thuê tài chính">
+                             <div style=" ">
+                                <field name="financial_config_lines_rest_debit" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'rest_debit'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="rest_this_year"/>
+                                        <field name="pay_interest_this_year"/>
+                                        <field name="pay_debit_this_year"/>
+                                        <field name="rest_last_year"/>
+                                        <field name="pay_interest_last_year"/>
+                                        <field name="pay_debit_last_year"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="14.Thuế và các khoản phải nộp">
+                             <div style=" ">
+                                <field name="financial_config_lines_vat_other" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'vat_other'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="initial"/>
+                                        <field name="turn_in_year"/>
+                                        <field name="real_turn_in_year"/>
+                                        <field name="last"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="15.Trái phiếu phát hành">
+                             <div style=" ">
+                                <field name="financial_config_lines_trai_phieu" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'trai_phieu'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="last_year_interest"/>
+                                        <field name="initial"/>
+                                        <field name="init_year_interest"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="16.Biến động vốn CSH">
+                             <div style=" ">
+                                <field name="financial_config_lines_csh" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'csh'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="von_gop_csh"/>
+                                        <field name="td_vcp"/>
+                                        <field name="cd_tp"/>
+                                        <field name="vk_csh"/>
+                                        <field name="cl_dg_ts"/>
+                                        <field name="cl_tg"/>
+                                        <field name="lnst"/>
+                                        <field name="other_csh"/>
+                                        <field name="total"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="17.Tài sản thiếu chờ xử lý">
+                             <div style=" ">
+                                <field name="financial_config_lines_assets_wait" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'assets_wait'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last_number"/>
+                                        <field name="last"/>
+                                        <field name="initial_number"/>
+                                        <field name="initial"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="18.Phải trả người bán">
+                            <div style=" ">
+                                <field name="financial_config_lines_customer_pay" nolabel="1" widget="x_list_customize_width">
+                                    <tree string="Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Thêm một dòng"
+                                                    context="{'default_page': 'customer_pay'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="page" invisible="1"/>
+                                        <field name="code" required="True"/>
+                                        <field name="name"/>
+                                        <field name="note"/>
+                                        <field name="type"/>
+                                        <field name="last"/>
+                                        <field name="last_year_can_pay"/>
+                                        <field name="initial"/>
+                                        <field name="initial_year_can_pay"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="financial_config_line_form" model="ir.ui.view">
+            <field name="name">financial_config_line_form</field>
+            <field name="model">financial.config.line</field>
+            <field name="arch" type="xml">
+                <form string="o">
+                    <sheet>
+                         <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_account_financial_reports_note_tree" model="ir.ui.view">
+            <field name="name">account.financial.html.note.report.tree</field>
+            <field name="model">financial.note</field>
+            <field name="arch" type="xml">
+                <tree string="Thuyet Minh Tai Chinh">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_financial_reports_note_action_server" model="ir.actions.server">
+            <field name="name"># Update sequence</field>
+            <field name="model_id" ref="model_financial_note"/>
+            <field name="binding_model_id" ref="advanced_vn_report.model_financial_note"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">record.update_sequence()</field>
+        </record>
+        <record id="account_financial_reports_note_form" model="ir.actions.act_window">
+            <field name="name">Thuyết minh tài chính</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">financial.note</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create': False}</field>
+            <!--            <field name="view_id" ref="view_account_financial_reports_note_form"/>-->
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_account_financial_reports_note_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_financial_reports_note_form')})]"/>
+        </record>
+        <record id="view_account_financial_operation_tree" model="ir.ui.view">
+            <field name="name">view_account_financial_operation_tree</field>
+            <field name="model">financial.operation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_account_financial_operation_line_tree" model="ir.ui.view">
+            <field name="name">view_account_financial_operation_line_tree</field>
+            <field name="model">financial.operation.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="account_financial_operation_menu_action" model="ir.actions.act_window">
+            <field name="name">Thuyết minh tài chính - Operation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">financial.operation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="account_financial_operation_line_menu_action" model="ir.actions.act_window">
+            <field name="name">Thuyết minh tài chính - Operation Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">financial.operation.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="account_financial_config_line_menu_action" model="ir.actions.act_window">
+            <field name="name">Thuyết minh tài chính - Config Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">financial.config.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_account_financial_reports_note_form" name="### Thuyết minh tài chính"
+                  parent="account.account_management_menu"
+                  action="advanced_vn_report.account_financial_reports_note_form"/>
+
+        <menuitem id="menu_financial_operation" name="### Thuyết minh tài chính - Operation"
+                  parent="account.account_management_menu"
+                  action="advanced_vn_report.account_financial_operation_menu_action"/>
+
+        <menuitem id="menu_financial_operation_line" name="### Thuyết minh tài chính - Operation Line"
+                  parent="account.account_management_menu"
+                  action="advanced_vn_report.account_financial_operation_line_menu_action"/>
+        <menuitem id="menu_financial_config_line" name="### Thuyết minh tài chính - Config Line"
+                  parent="account.account_management_menu"
+                  action="advanced_vn_report.account_financial_config_line_menu_action"/>
+
+        <record id="view_account_financial_reports_note_opera_form" model="ir.ui.view">
+            <field name="name">account.financial.opera.form</field>
+            <field name="model">financial.operation</field>
+            <field name="arch" type="xml">
+                <form string="Xây dựng công thức">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="row" required="True"/>
+                            <field name="col" required="True"/>
+                            <field name="financial_value"/>
+                            <!--                            <field name="type" required="True"/>-->
+                        </group>
+                        <notebook>
+                            <page string="Các phép tính">
+                                <field name="operation_lines" nolabel="1">
+                                    <tree string="Lines" editable="bottom">
+                                        <field name="opera"/>
+                                        <field name="type"/>
+                                        <field name="note"/>
+                                        <field name="name"/>
+                                        <field name="code"
+                                               attrs="{'invisible': [('type','!=','chi_tieu')]}"/>
+                                        <field name="account_id"/>
+                                        <field name="account_id_balance"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="export_financial_report_form" model="ir.ui.view">
+            <field name="name">export_financial_report_form</field>
+            <field name="model">financial.out.report</field>
+            <field name="arch" type="xml">
+                <form string="o">
+                    <sheet>
+                        <group>
+                            <field name="period" readonly="1"/>
+                            <field name="date_from" required="0"/>
+                            <field name="date_to" required="0"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm" type="object" string="Xuất Tệp Excel" class="oe_highlight"/>
+                        <button string="Hủy" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="export_financial_report_action" model="ir.actions.act_window">
+            <field name="name">### Xuất báo cáo thuyết minh tài chính</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">financial.out.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="advanced_vn_report.export_financial_report_form"/>
+        </record>
+        <record id="mass_pupup_financial_operation" model="ir.actions.server">
+            <field name="name"># Tính tổng</field>
+            <field name="model_id" ref="model_financial_operation"/>
+            <field name="binding_model_id" ref="advanced_vn_report.model_financial_operation"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                view = env.ref("advanced_vn_report.popup_financial_operation_form_view")
+                action = {
+                'name':'# Tính tổng',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'popup.financial.operation',
+                'type': 'ir.actions.act_window',
+                'view_id': view.id,
+                'target': 'new',
+                'context': {
+                'default_financial_operation_id': records.id,
+                }
+                }
+            </field>
+        </record>
+
+        <menuitem id="export_financial_report_menu" name="### Xuất báo cáo thuyết minh tài chính"
+                  parent="account.account_reports_legal_statements_menu" action="export_financial_report_action"
+                  sequence="300"/>
+
+    </data>
+</odoo>

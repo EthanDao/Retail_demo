@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <template id="account_report_line_template_inherit_update_view_journal_item" inherit_id="account_reports.line_caret_options">
+            <xpath expr="//a[@action='open_journal_items']" position="replace">
+                <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" t-att-data-financial_group_line_id="line.get('model') == 'account.financial.html.report' and line.get('parent_id')"
+                   t-att-data-domain="line.get('domain')" action="open_journal_items" class="dropdown-item"># Bút toán liên quan
+                </a>
+            </xpath>
+        </template>
+    </data>
+</odoo>

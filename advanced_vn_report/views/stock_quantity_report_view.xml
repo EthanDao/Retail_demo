@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_quantity_report_view_form" model="ir.ui.view">
+            <field name="name">stock_quantity_report_view_form</field>
+            <field name="model">stock.quantity.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="load_data" string="Lấy dữ liệu" type="object"
+                                class="btn-primary"/>
+                    </header>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                        <field name="location_id" required="1"/>
+                        <field name="line_ids">
+                           <tree>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="default_code" readonly="1"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="uom_id" readonly="1"/>
+                                <field name="product_qty_start" readonly="1"/>
+                                <field name="value_start" readonly="1"/>
+                                <field name="product_qty_in" readonly="1"/>
+                                <field name="value_in" readonly="1"/>
+                                <field name="product_qty_out" readonly="1"/>
+                                <field name="value_out" readonly="1"/>
+                                <field name="product_qty_end" readonly="1"/>
+                                <field name="value_end" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="stock_quantity_report_view_tree" model="ir.ui.view">
+            <field name="name">stock_quantity_report_view_tree</field>
+            <field name="model">stock.quantity.report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+        <record id="stock_quantity_report_action_menu" model="ir.actions.act_window">
+            <field name="name">Báo cáo xuất nhập tồn</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.quantity.report</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+<!--        <menuitem id="stock_quantity_report_menu" name="Báo cáo xuất nhập tồn" parent="account.menu_finance_entries"-->
+<!--                  action="stock_quantity_report_action_menu" sequence="99"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="warehouse_card_report_file_form_view" model="ir.ui.view">
+            <field name="name">warehouse_card_report_file_form_view</field>
+            <field name="model">warehouse.card.report.file</field>
+            <field name="arch" type="xml">
+                <form string="warehouse_card_report_file_form_view">
+                    <sheet>
+                        <group>
+                            <field name="file_name" invisible="1"/>
+                            <field name="file" filename="file_name" readonly="1" string="Result"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Cancel" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="warehouse_card_report_export_form_view" model="ir.ui.view">
+            <field name="name">warehouse_card_report_export_form_view</field>
+            <field name="model">warehouse.card.report.export</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <field name="location_children_ids" invisible="1"/>
+                            <field name="location_id" required="1" domain="[('id', 'in', location_children_ids)]"/>
+                            <field name="product_ids" widget="many2many_tags" required="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm_export" type="object" string="Xác nhận"
+                                class="oe_highlight"/>
+                        <button string="Huỷ" type="object" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="warehouse_card_report_export_action" model="ir.actions.act_window">
+            <field name="name">### Thẻ kho</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">warehouse.card.report.export</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="advanced_vn_report.warehouse_card_report_export_form_view"/>
+        </record>
+        <menuitem id="warehouse_card_report_export_menu" name="### Thẻ kho"
+                  parent="stock.menu_warehouse_report" action="warehouse_card_report_export_action"
+                  sequence="320"/>
+    </data>
+</odoo>

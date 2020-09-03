@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_move_line_split_contract_view_form" model="ir.ui.view">
+            <field name="name">account_move_line_split_contract_view_form</field>
+            <field name="model">account.move.line.split.contract</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="compute_contract_price_by_split_type" string="Tính phân bổ" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible': [('state','!=','draft')]}"/>
+                        <button name="done" string="Xác nhận phân bổ" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state','!=','draft')]}"/>
+<!--                        <button name="cancel" string="Hủy" type="object" class="btn-primary"-->
+<!--                                attrs="{'invisible': [('state','!=','done')]}"/>-->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="code" readonly="1"/>
+                        <field name="date" required="1"/>
+                        <field name="line_ids">
+                            <tree editable="bottom" default_order='create_date desc'>
+                                <field name="currency_id" invisible="1"/>
+<!--                                <field name="account_move_line_id"-->
+<!--                                       required="1"-->
+<!--                                       domain="[('move_id.state', '=', 'posted'),('remain_balance_stored', '&gt;', 0),('move_id.sale_order_contract_id', '=', False), '|',('account_id.code', '=like', '627%'),'|',('account_id.code', '=like', '623%'),'|',('account_id.code', '=like', '621%'),('account_id.code', '=', '622')]"/>-->
+                                <field name="init_balance"/>
+                                <field name="credit"/>
+                                <field name="debit"/>
+                                <field name="remain_balance"/>
+                                <field name="split_type"/>
+                                <field name="price"/>
+                                <field name="create_date" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="contract_ids" domain="[('remain_cost_temp_stored','&gt;',0)]">
+                            <tree editable="bottom" default_order='create_date desc'>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="contract_id" domain="[('compute_confirmed','=',True)]" required="1"/>
+                                <field name="related_contract_compute_direct_product_price"/>
+                                <field name="related_contract_compute_direct_employee_cost"/>
+                                <field name="related_contract_compute_sale_order_amount"/>
+                                <field name="related_contract_fix_rate_price"/>
+                                <field name="price"/>
+                                <field name="create_date" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="transaction_entry_ids">
+                            <tree editable="bottom">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="contract_id"/>
+                                <field name="partner_id"/>
+                                <field name="name"/>
+                                <field name="account_id"/>
+<!--                                <field name="related_account_id"/>-->
+                                <field name="price"/>
+                                <field name="date"/>
+                                <field name="create_date" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="account_move_line_split_contract_view_tree" model="ir.ui.view">
+            <field name="name">account_move_line_split_contract_view_tree</field>
+            <field name="model">account.move.line.split.contract</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code" readonly="1"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="account_move_line_split_contract_action_menu" model="ir.actions.act_window">
+            <field name="name">Phân bổ chi phí hợp đồng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move.line.split.contract</field>
+            <field name="context">{'delete':False}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="account_move_line_split_contract_menu" name="Phân bổ chi phí cho hợp đồng" parent="account.menu_finance_entries"
+                  action="account_move_line_split_contract_action_menu" sequence="99"/>
+    </data>
+</odoo>

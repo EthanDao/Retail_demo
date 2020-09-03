@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="transaction_entry_model_view_form" model="ir.ui.view">
+            <field name="name">transaction_entry_model_view_form</field>
+            <field name="model">transaction.entry.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="load_transaction_lines" string="Lấy dữ liệu" type="object" class="btn-primary"
+                                attrs="{'invisible':[('state','=','done')]}"/>
+                        <button name="post_transaction_lines" string="Xác nhận Kết chuyển" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible':[('state','=','done')]}"/>
+<!--                        <button name="cancel" string="Hủy" type="object" class="btn-primary"/>-->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_transaction_entry_account_move"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o">
+                            <field name="count_move_line" widget="statinfo" string="Bút toán liên quan"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="code" readonly="1"/>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                        <field name="entry_lines">
+                           <tree editable="bottom" create="false">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="contract_id" readonly="1"/>
+                                <field name="partner_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="account_id" readonly="1"/>
+<!--                                <field name="related_account_id"/>-->
+                                <field name="price" readonly="1"/>
+                                <field name="date" readonly="1"/>
+                                <field name="create_date" invisible="1"/>
+                            </tree>
+                        </field>
+                         <field name="account_move_lines">
+<!--                           <tree editable="bottom" create="false">-->
+<!--                           </tree>-->
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="transaction_entry_model_view_tree" model="ir.ui.view">
+            <field name="name">transaction_entry_model_view_tree</field>
+            <field name="model">transaction.entry.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code" readonly="1"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+        <record id="transaction_entry_model_action_menu" model="ir.actions.act_window">
+            <field name="name">Kết chuyển chi phí hợp đồng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transaction.entry.model</field>
+            <field name="context">{'delete':False}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="transaction_entry_model_menu" name="Kết chuyển chi phí hợp đồng" parent="account.menu_finance_entries"
+                  action="transaction_entry_model_action_menu" sequence="99"/>
+    </data>
+</odoo>
